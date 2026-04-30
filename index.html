@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda - BUMDesa Mappakengka Buana Paselloreng</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        :root {
+            --primary-green: #0b2e26;
+            --eco-medium: #1e5128;
+            --eco-light: #4e944f;
+            --accent-lime: #b4ff9f;
+            --glass-bg: rgba(255, 255, 255, 0.7); 
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --text-main: #0b2e26;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Sora', sans-serif; }
+
+        body {
+            /* PERBAIKAN: Mengubah background hijau menjadi putih abu-abu netral */
+            background-color: #f8f9fa; 
+            color: var(--text-main);
+            overflow-x: hidden;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        /* --- NAVIGATION STABIL --- */
+        .nav-wrapper { position: fixed; top: 0; left: 0; width: 100%; z-index: 9999; padding: 20px; display: flex; justify-content: center; transition: all 0.4s ease; pointer-events: none; }
+        nav { pointer-events: auto; max-width: 1100px; width: auto; background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 15px; padding: 8px; box-shadow: 0 5px 20px rgba(11, 46, 38, 0.05); }
+        .nav-scrolled { padding: 10px 20px; }
+        .nav-scrolled nav { background: rgba(255, 255, 255, 0.95); }
+        nav ul { display: flex; list-style: none; gap: 2px; }
+        nav ul li a { text-decoration: none; color: var(--primary-green); font-weight: 600; font-size: 0.75rem; padding: 12px 18px; border-radius: 10px; transition: 0.3s; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+        nav ul li a.active { background: var(--primary-green); color: #fff; }
+
+        .hamburger-menu { display: none; cursor: pointer; padding: 10px; }
+        .hamburger-lines { width: 22px; height: 16px; display: flex; flex-direction: column; justify-content: space-between; }
+        .line { height: 3px; width: 100%; background: var(--primary-green); border-radius: 100px; }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(11, 46, 38, 0.7), rgba(11, 46, 38, 0.7)), 
+                        url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 { font-size: 4rem; font-weight: 800; letter-spacing: -2px; line-height: 1; margin-bottom: 20px; }
+        .hero-content h1 span { color: var(--accent-lime); }
+        .hero-content p { font-size: 1.2rem; opacity: 0.9; max-width: 700px; margin: 0 auto 35px; line-height: 1.6; }
+
+        .cta-buttons { display: flex; gap: 15px; justify-content: center; }
+        .btn { padding: 16px 32px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: 0.3s; }
+        .btn-primary { background: var(--accent-lime); color: var(--primary-green); }
+        .btn-primary:hover { background: white; transform: translateY(-3px); }
+        .btn-outline { border: 2px solid white; color: white; }
+        .btn-outline:hover { background: white; color: var(--primary-green); }
+
+        /* --- STATS SECTION --- */
+        .stats-container {
+            max-width: 1100px;
+            margin: -80px auto 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08); /* Shadow sedikit lebih tegas */
+            border: 1px solid #f0f0f0;
+        }
+        .stat-card i { font-size: 2rem; color: var(--eco-light); margin-bottom: 15px; }
+        .stat-card h3 { font-size: 1.8rem; font-weight: 800; color: var(--primary-green); }
+        .stat-card p { font-size: 0.75rem; color: #777; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+
+        .stat-card.visitor-counter {
+            border: 1px solid var(--accent-lime);
+            background: linear-gradient(to bottom, #ffffff, #fff); /* Menetralkan background card */
+        }
+
+        /* --- FEATURES SECTION --- */
+        .features { padding: 100px 20px; max-width: 1100px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 2.5rem; color: var(--primary-green); }
+        
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .feature-box {
+            padding: 40px;
+            background: #ffffff; /* Mengubah dari glass-bg transparan ke putih solid agar bersih */
+            border-radius: 24px;
+            border: 1px solid #eee;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.02);
+        }
+        .feature-box:hover { transform: translateY(-10px); background: white; border-color: var(--eco-light); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .feature-box i { font-size: 2.5rem; color: var(--eco-light); margin-bottom: 20px; }
+        .feature-box h4 { margin-bottom: 15px; font-size: 1.2rem; color: var(--primary-green); }
+        .feature-box p { font-size: 0.9rem; color: #555; line-height: 1.7; }
+
+        footer { background: var(--primary-green); color: white; padding: 60px 20px; text-align: center; }
+        .footer-logo { font-size: 1.5rem; font-weight: 800; margin-bottom: 10px; color: var(--accent-lime); }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.5rem; }
+            .nav-wrapper { justify-content: flex-end; padding: 15px; }
+            .hamburger-menu { display: block; }
+            nav ul { display: none; flex-direction: column; position: absolute; top: 70px; right: 20px; width: 260px; background: white; padding: 15px; border-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
+            nav ul.show { display: flex; animation: fadeInDown 0.3s ease forwards; }
+            .cta-buttons { flex-direction: column; }
+        }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div class="nav-wrapper" id="navWrapper">
+        <nav id="navbar">
+            <div class="hamburger-menu" onclick="toggleMenu(event)">
+                <div class="hamburger-lines"><span class="line"></span><span class="line"></span><span class="line"></span></div>
+            </div>
+            <ul id="nav-list">
+                <li><a href="index.html" class="active"><i class="fas fa-home"></i> HOME</a></li>
+                <li><a href="pendirian.html"><i class="fas fa-file-alt"></i> PENDIRIAN</a></li>
+                <li><a href="unit-usaha.html"><i class="fas fa-store"></i> UNIT USAHA</a></li>
+                <li><a href="pengurus.html"><i class="fas fa-users"></i> PENGURUS</a></li>
+                <li><a href="transparansi.html"><i class="fas fa-chart-line"></i> INFORMASI</a></li>
+                <li><a href="hubungi.html"><i class="fas fa-envelope"></i> HUBUNGI</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content animate__animated animate__fadeIn">
+            <p style="text-transform: uppercase; letter-spacing: 4px; font-weight: 700; color: var(--accent-lime);">BADAN USAHA MILIK DESA</p>
+            <h1>MAPPAKENGKA BUANA <br><span>PASELLORENG</span></h1>
+            <p>Membangun kemandirian ekonomi desa melalui tata kelola usaha yang profesional, transparan, dan berkelanjutan.</p>
+            <div class="cta-buttons">
+                <a href="unit-usaha.html" class="btn btn-primary">JELAJAHI UNIT USAHA</a>
+                <a href="transparansi.html" class="btn btn-outline">LIHAT TRANSPARANSI</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="stats-container animate__animated animate__fadeInUp">
+        <div class="stat-card">
+            <i class="fas fa-briefcase"></i>
+            <h3>5</h3>
+            <p>Unit Usaha</p>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-users"></i>
+            <h3>1k+</h3>
+            <p>Warga Terlayani</p>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-chart-line"></i>
+            <h3>100jt+</h3>
+            <p>Omzet Tahunan</p>
+        </div>
+        <div class="stat-card visitor-counter">
+            <i class="fas fa-eye"></i>
+            <h3 id="countDisplay">0</h3>
+            <p>Kunjungan Web</p>
+        </div>
+    </div>
+
+    <section class="features">
+        <div class="section-header animate__animated animate__fadeIn">
+            <h2>Pilar Keunggulan Kami</h2>
+            <p style="color: #666; margin-top: 10px;">Mengapa BUMDesa Mappakengka menjadi penggerak utama desa?</p>
+        </div>
+        
+        <div class="feature-grid">
+            <div class="feature-box animate__animated animate__fadeInUp">
+                <i class="fas fa-seedling"></i>
+                <h4>Ekonomi Berkelanjutan</h4>
+                <p>Setiap keuntungan dikelola kembali untuk memperkuat modal usaha dan memberikan kontribusi nyata pada PAD desa.</p>
+            </div>
+            <div class="feature-box animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+                <i class="fas fa-shield-alt"></i>
+                <h4>Transparansi Total</h4>
+                <p>Kami menyajikan laporan keuangan yang dapat diakses oleh seluruh masyarakat sebagai bentuk akuntabilitas publik.</p>
+            </div>
+            <div class="feature-box animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+                <i class="fas fa-handshake"></i>
+                <h4>Pemberdayaan Lokal</h4>
+                <p>Mengutamakan potensi SDM dan sumber daya alam lokal untuk menciptakan lapangan kerja baru di desa.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">BUMDesa Mappakengka Buana Paselloreng</div>
+        <p style="opacity: 0.7; font-size: 0.85rem; max-width: 500px; margin: 10px auto 30px;">Mewujudkan Desa Paselloreng yang berdaya saing melalui inovasi bisnis desa yang inklusif.</p>
+        <div style="font-size: 0.75rem; opacity: 0.5;">
+            &copy; 2026 BUMDesa Mappakengka Buana Paselloreng. <br>
+            Kecamatan Gilireng, Kabupaten Wajo, Sulawesi Selatan.
+        </div>
+    </footer>
+
+    <script>
+        function updateVisitorCount() {
+            let totalCount = localStorage.getItem('visit_count');
+            let hasVisitedThisSession = sessionStorage.getItem('visited_session');
+
+            if (totalCount === null) {
+                totalCount = 1;
+                localStorage.setItem('visit_count', totalCount);
+                sessionStorage.setItem('visited_session', 'true');
+            } 
+            else if (!hasVisitedThisSession) {
+                totalCount = parseInt(totalCount) + 1;
+                localStorage.setItem('visit_count', totalCount);
+                sessionStorage.setItem('visited_session', 'true');
+            }
+
+            document.getElementById('countDisplay').innerText = parseInt(totalCount).toLocaleString();
+        }
+
+        function toggleMenu(event) {
+            event.stopPropagation();
+            document.getElementById("nav-list").classList.toggle("show");
+        }
+
+        window.onclick = function(event) {
+            const navList = document.getElementById("nav-list");
+            if (!event.target.closest('nav') && navList.classList.contains('show')) {
+                navList.classList.remove('show');
+            }
+        }
+
+        const navWrapper = document.getElementById('navWrapper');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 40) { navWrapper.classList.add('nav-scrolled'); } 
+            else { navWrapper.classList.remove('nav-scrolled'); }
+        });
+        
+        window.addEventListener('load', () => { 
+            document.body.style.opacity = '1'; 
+            updateVisitorCount();
+        });
+    </script>
+</body>
+</html>
