@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
@@ -22,211 +21,105 @@
             --text-main: #0b2e26;
         }
 
-        /* --- GLOBAL FIX UNTUK MENCEGAH SCROLL HORIZONTAL --- */
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            font-family: 'Sora', sans-serif; 
-        }
-
-        html, body {
-            overflow-x: hidden; /* Mengunci geser kanan-kiri */
-            width: 100%;
-            position: relative;
-        }
+        /* --- GLOBAL RESET --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Sora', sans-serif; }
 
         body {
-            background: 
-                linear-gradient(rgba(244, 252, 244, 0.85), rgba(244, 252, 244, 0.85)),
-                url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            min-height: 100vh;
-            color: var(--text-main);
-            display: flex;
-            flex-direction: column;
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out;
+            background: linear-gradient(rgba(244, 252, 244, 0.9), rgba(244, 252, 244, 0.9)),
+                        url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            min-height: 100vh; color: var(--text-main); overflow-x: hidden;
+            display: flex; flex-direction: column; opacity: 0; transition: opacity 0.8s ease;
         }
 
-        /* --- STYLES LOADER --- */
-        #loader {
-            position: fixed;
-            top: 0; left: 0; 
-            width: 100%; height: 100%;
-            background: #f4fcf4;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-            transition: opacity 0.6s ease, visibility 0.6s;
-        }
+        /* --- EFEK BLOBS (BACK) --- */
+        .bg-blobs { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+        .blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.2; animation: float 20s infinite alternate ease-in-out; }
+        .blob-1 { width: 500px; height: 500px; background: var(--eco-light); top: -10%; left: -10%; }
+        .blob-2 { width: 400px; height: 400px; background: var(--accent-lime); bottom: 10%; right: -5%; }
+        @keyframes float { from { transform: translate(0,0); } to { transform: translate(50px, 50px); } }
 
-        .loader-icon {
-            width: 80px; height: 80px;
-            border: 4px solid rgba(78, 148, 79, 0.2);
-            border-left-color: var(--eco-light);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            position: relative;
-        }
-
-        .loader-icon i {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            color: var(--eco-light);
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
+        /* --- LOADER --- */
+        #loader { position: fixed; inset: 0; background: #f4fcf4; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10000; }
+        .loader-icon { width: 60px; height: 60px; border: 4px solid #eee; border-left-color: var(--eco-light); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
 
-        .loader-text {
-            margin-top: 20px;
-            font-weight: 700;
-            color: var(--primary-green);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        /* --- NAVIGATION STABIL --- */
-        .nav-wrapper { 
-            position: fixed; top: 0; left: 0; width: 100%; z-index: 9999; 
-            padding: 20px; display: flex; justify-content: center; 
-            transition: all 0.4s ease; pointer-events: none; 
-            box-sizing: border-box; /* Fix: Padding tidak menambah lebar */
-        }
-        
-        nav { 
-            pointer-events: auto; max-width: 1100px; width: auto; 
-            background: rgba(255, 255, 255, 0.6); 
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
-            border: 1px solid var(--glass-border); 
-            border-radius: 15px; padding: 8px; 
-            box-shadow: 0 5px 20px rgba(11, 46, 38, 0.1); 
-        }
-
+        /* --- NAVIGASI (IDENTIK DENGAN ACUAN) --- */
+        .nav-wrapper { position: fixed; top: 0; left: 0; width: 100%; z-index: 9999; padding: 20px; display: flex; justify-content: center; transition: 0.4s; pointer-events: none; }
+        nav { pointer-events: auto; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(15px); border: 1px solid var(--glass-border); border-radius: 15px; padding: 8px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
         .nav-scrolled { padding: 10px 20px; }
-        .nav-scrolled nav { background: rgba(255, 255, 255, 0.95); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
-
+        .nav-scrolled nav { background: rgba(255, 255, 255, 0.95); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         nav ul { display: flex; list-style: none; gap: 2px; }
-        nav ul li a { 
-            text-decoration: none; color: var(--primary-green); 
-            font-weight: 600; font-size: 0.75rem; padding: 12px 18px; 
-            border-radius: 10px; transition: 0.3s; 
-            display: flex; align-items: center; gap: 8px; white-space: nowrap; 
-        }
-        nav ul li a:hover { background: rgba(11, 46, 38, 0.1); }
-        nav ul li a.active { background: var(--primary-green); color: #fff; box-shadow: 0 4px 12px rgba(11, 46, 38, 0.2); }
-
+        nav ul li a { text-decoration: none; color: var(--primary-green); font-weight: 600; font-size: 0.75rem; padding: 12px 18px; border-radius: 10px; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
+        nav ul li a:hover { background: rgba(11, 46, 38, 0.05); }
+        nav ul li a.active { background: var(--primary-green); color: #fff; }
         .hamburger-menu { display: none; cursor: pointer; padding: 10px; }
-        .hamburger-lines { width: 22px; height: 16px; display: flex; flex-direction: column; justify-content: space-between; }
-        .line { height: 3px; width: 100%; background: var(--primary-green); border-radius: 100px; }
+        .line { height: 3px; width: 22px; background: var(--primary-green); display: block; margin: 4px 0; border-radius: 2px; }
 
         /* --- CONTENT AREA --- */
-        .content-area { 
-            flex: 1 0 auto; 
-            max-width: 1100px; 
-            margin: 140px auto 60px; 
-            padding: 0 20px; 
-            width: 100%; 
-            box-sizing: border-box;
-        }
-        
-        .header-title { text-align: center; padding-bottom: 50px; }
-        .header-title h1 { font-size: 3.2rem; color: var(--primary-green); font-weight: 800; margin-bottom: 12px; letter-spacing: -1.5px; line-height: 1.1; }
+        .content-area { flex: 1; max-width: 1100px; margin: 140px auto 60px; padding: 0 20px; width: 100%; z-index: 1; }
+        .header-title { text-align: center; margin-bottom: 50px; }
+        .header-title h1 { font-size: 3rem; font-weight: 800; color: var(--primary-green); }
         .header-title h1 span { color: var(--eco-light); }
 
-        .contact-grid { display: grid; grid-template-columns: 1.2fr 1.8fr; gap: 30px; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 30px; align-items: start; }
 
-        /* LEFT SIDE: INFO & SOCIALS */
-        .info-card { background: var(--primary-green); color: white; padding: 40px; border-radius: 24px; box-shadow: 0 15px 35px rgba(11, 46, 38, 0.2); position: relative; overflow: hidden; }
-        .info-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: var(--accent-lime); }
-        .info-card h2 { font-size: 2rem; margin-bottom: 20px; color: var(--accent-lime); }
-        
-        .social-list { list-style: none; margin-top: 30px; }
-        .social-item { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; text-decoration: none; color: white; transition: 0.3s; }
+        /* CARDS */
+        .info-card { background: var(--primary-green); color: white; padding: 40px; border-radius: 24px; position: relative; overflow: hidden; box-shadow: 0 20px 40px rgba(11, 46, 38, 0.2); }
+        .social-item { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; text-decoration: none; color: white; font-size: 0.9rem; transition: 0.3s; }
         .social-item:hover { color: var(--accent-lime); transform: translateX(5px); }
-        .social-item i { width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .social-item i { width: 35px; height: 35px; background: rgba(255,255,255,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
 
-        /* RIGHT SIDE: FORM & MAP */
-        .form-card { 
-            background: var(--glass-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            padding: 40px; border-radius: 24px; border: 1px solid var(--glass-border); 
-            box-shadow: 0 10px 40px rgba(0,0,0,0.03); margin-bottom: 30px; position: relative; overflow: hidden; 
+        .form-card { background: var(--glass-bg); backdrop-filter: blur(10px); padding: 40px; border-radius: 24px; border: 1px solid var(--glass-border); box-shadow: 0 15px 35px rgba(0,0,0,0.05); }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 0.75rem; font-weight: 700; margin-bottom: 5px; color: var(--primary-green); }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px 15px; border-radius: 10px; border: 1px solid rgba(0,0,0,0.1); outline: none; font-size: 0.9rem; }
+        .btn-send { width: 100%; padding: 15px; border-radius: 10px; border: none; background: var(--primary-green); color: white; font-weight: 700; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .btn-send:hover { background: var(--eco-light); transform: translateY(-2px); }
+
+        /* --- PERBAIKAN MAP CARD --- */
+        .map-card { 
+            grid-column: 1 / -1; /* Membuat map memanjang penuh di bawah dua kolom tadi */
+            height: 450px; 
+            background: white;
+            border-radius: 24px; 
+            overflow: hidden; 
+            border: 10px solid white; 
+            box-shadow: 0 15px 45px rgba(0,0,0,0.1); 
+            margin-top: 10px;
         }
-        .form-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, var(--eco-light), var(--accent-lime)); }
-        
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; font-size: 0.8rem; font-weight: 700; margin-bottom: 8px; color: var(--primary-green); }
-        .form-group input, .form-group textarea { 
-            width: 100%; padding: 15px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.1); 
-            background: rgba(255, 255, 255, 0.9); font-family: inherit; font-size: 0.9rem; 
-        }
-        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--eco-light); box-shadow: 0 0 0 3px rgba(78, 148, 79, 0.1); }
-        
-        .btn-send { 
-            background: var(--primary-green); color: white; border: none; padding: 18px 30px; 
-            border-radius: 12px; font-weight: 700; cursor: pointer; width: 100%; 
-            transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; 
-        }
-        .btn-send:hover { background: var(--eco-light); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .map-card iframe { width: 100%; height: 100%; border: 0; display: block; }
 
-        /* Fix: Map responsif agar tidak mendorong layar keluar */
-        .map-card { height: 320px; border-radius: 24px; overflow: hidden; border: 5px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .map-card iframe { width: 100% !important; height: 100%; border: none; }
+        footer { text-align: center; padding: 40px; font-size: 0.8rem; opacity: 0.8; }
 
-        footer { text-align: center; padding: 40px; font-size: 0.8rem; color: var(--primary-green); font-weight: 600; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(5px); }
-
-        /* --- RESPONSIVE ADJUSTMENTS --- */
-        @media (max-width: 992px) {
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
             .contact-grid { grid-template-columns: 1fr; }
-            .header-title h1 { font-size: 2.5rem; }
+            .header-title h1 { font-size: 2.2rem; }
+            .content-area { margin-top: 100px; }
         }
-
         @media (max-width: 768px) {
             .nav-wrapper { justify-content: flex-end; padding: 15px; }
             .hamburger-menu { display: block; }
-            nav ul { 
-                display: none; 
-                flex-direction: column; 
-                position: absolute; 
-                top: 70px; 
-                right: 20px; 
-                left: 20px; /* Fix: Agar menu selebar layar mobile minus padding */
-                width: auto; 
-                background: white; 
-                padding: 15px; 
-                border-radius: 15px; 
-                box-shadow: 0 15px 40px rgba(0,0,0,0.15); 
-            }
-            nav ul.show { display: flex; animation: fadeInDown 0.3s ease forwards; }
-            
-            .header-title h1 { font-size: 2.2rem; }
-            .content-area { margin-top: 100px; padding: 0 15px; }
-            .info-card, .form-card { padding: 30px 20px; }
+            nav ul { display: none; flex-direction: column; position: absolute; top: 70px; right: 20px; width: 240px; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+            nav ul.show { display: flex; }
+            .map-card { height: 300px; }
         }
-
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <div id="loader">
-        <div class="loader-icon">
-            <i class="fas fa-leaf"></i>
-        </div>
-        <p class="loader-text">Memuat Data...</p>
+    <div id="loader"><div class="loader-icon"></div></div>
+
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
     </div>
 
     <div class="nav-wrapper" id="navWrapper">
-        <nav id="navbar">
+        <nav>
             <div class="hamburger-menu" onclick="toggleMenu(event)">
-                <div class="hamburger-lines"><span class="line"></span><span class="line"></span><span class="line"></span></div>
+                <span class="line"></span><span class="line"></span><span class="line"></span>
             </div>
             <ul id="nav-list">
                 <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
@@ -240,158 +133,71 @@
     </div>
 
     <main class="content-area">
-        <header class="header-title animate__animated animate__fadeIn">
+        <header class="header-title animate__animated animate__fadeInDown">
             <h1>Hubungi <span>Kami</span></h1>
-            <p style="color: var(--eco-medium); font-weight: 700; text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; margin-top: 10px;">Layanan Aspirasi & Informasi Masyarakat</p>
+            <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.7rem; font-weight: 700; margin-top: 10px; color: var(--eco-medium);">BUM Desa Mappakengka Buana Paselloreng</p>
         </header>
 
         <div class="contact-grid">
-            
+            <!-- Kolom Kiri: Info -->
             <div class="animate__animated animate__fadeInLeft">
                 <div class="info-card">
-                    <h2>Kontak Resmi</h2>
-                    <p>Silahkan hubungi kami melalui saluran resmi berikut atau kunjungi kantor operasional kami di jam kerja.</p>
-                    
+                    <h3 style="margin-bottom: 20px; color: var(--accent-lime);">Kontak Kami</h3>
                     <div class="social-list">
-                        <div class="social-item">
-                            <i class="fas fa-clock"></i>
-                            <span>Senin - Sabtu: 08.00 - 16.00 WITA</span>
-                        </div>
-                        <a href="https://wa.me/6285314101659" class="social-item">
-                            <i class="fab fa-whatsapp"></i>
-                            <span>+62 853-1410-1659</span>
-                        </a>
-                        <a href="mailto:mappakengkabuana@mail.com" class="social-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>mappakengkabuana@mail.com</span>
-                        </a>
-                        <a href="https://www.facebook.com/profile.php?id=61585695863025" class="social-item">
-                            <i class="fab fa-facebook-f"></i>
-                            <span>BUM Desa Mappakengka Buana Paselloreng</span>
-                        </a>
-                        <a href="#" class="social-item">
-                            <i class="fab fa-instagram"></i>
-                            <span>@bumdesa_paselloreng</span>
-                        </a>
+                        <div class="social-item"><i class="fas fa-map-marker-alt"></i><span>Desa Paselloreng, Wajo</span></div>
+                        <div class="social-item"><i class="fas fa-clock"></i><span>Senin-Sabtu: 08:00 - 16:00</span></div>
+                        <a href="https://wa.me/6285314101659" class="social-item"><i class="fab fa-whatsapp"></i><span>0853-1410-1659</span></a>
+                        <a href="mailto:mappakengkabuana@mail.com" class="social-item"><i class="fas fa-envelope"></i><span>mappakengkabuana@mail.com</span></a>
+                        <a href="https://facebook.com" class="social-item"><i class="fab fa-facebook-f"></i><span>BUMDesa Mappakengka</span></a>
                     </div>
-                </div>
-
-                <div class="map-card" style="margin-top: 30px;">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31847.274904490463!2d120.17296693476563!3d-3.8296171000000134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d967f002f081de9%3A0x73f1673b2acee1d1!2sBUM%20Desa%20Mappakengka%20Buana%20Paselloreng!5e0!3m2!1sid!2sid!4v1777535149435!5m2!1sid!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
 
+            <!-- Kolom Kanan: Form -->
             <div class="animate__animated animate__fadeInRight">
                 <div class="form-card">
-                    <h3 style="color: var(--primary-green); margin-bottom: 10px; font-weight: 800;">Kotak Masukan</h3>
-                    <p style="font-size: 0.85rem; color: #666; margin-bottom: 25px;">Kritik, saran, atau pertanyaan Anda adalah energi bagi pertumbuhan kami.</p>
-                    
                     <form id="saranForm" action="https://formspree.io/f/xvzdbbze" method="POST">
-                        <div class="form-group">
-                            <label>Nama Lengkap</label>
-                            <input type="text" name="nama" placeholder="Nama Anda" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Alamat Email (Wajib)</label>
-                            <input type="email" name="email" placeholder="email@contoh.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Subjek Pesan</label>
-                            <input type="text" name="subjek" placeholder="Contoh: Pertanyaan Unit Usaha">
-                        </div>
-                        <div class="form-group">
-                            <label>Pesan Anda</label>
-                            <textarea name="pesan" rows="5" placeholder="Tuliskan pesan atau saran Anda di sini..." required></textarea>
-                        </div>
-                        <button type="submit" class="btn-send" id="submitBtn">
-                            <i class="fas fa-paper-plane" id="btnIcon"></i> <span id="btnText">KIRIM PESAN SEKARANG</span>
-                        </button>
+                        <div class="form-group"><label>Nama Lengkap</label><input type="text" name="nama" placeholder="Masukkan nama..." required></div>
+                        <div class="form-group"><label>Email</label><input type="email" name="email" placeholder="Alamat email..." required></div>
+                        <div class="form-group"><label>Pesan</label><textarea name="pesan" rows="4" placeholder="Apa yang ingin Anda sampaikan?" required></textarea></div>
+                        <button type="submit" class="btn-send" id="submitBtn">KIRIM PESAN</button>
                     </form>
                 </div>
             </div>
 
+            <!-- Baris Bawah: Map (Utuh & Luas) -->
+            <div class="map-card animate__animated animate__fadeInUp">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31847.274904490463!2d120.17296693476563!3d-3.8296171000000134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d967f002f081de9%3A0x73f1673b2acee1d1!2sBUM%20Desa%20Mappakengka%20Buana%20Paselloreng!5e0!3m2!1sid!2sid!4v1715535149435!5m2!1sid!2sid" allowfullscreen="" loading="lazy"></iframe>
+            </div>
         </div>
     </main>
 
-    <footer>
-        <p>© 2026 BUMDesa Mappakengka Buana Paselloreng.<br>Desa Paselloreng, Kec. Gilireng, Kab. Wajo.</p>
-    </footer>
+    <footer><p>&copy; 2026 BUMDesa Mappakengka Buana Paselloreng.</p></footer>
 
     <script>
-        function toggleMenu(event) {
-            event.stopPropagation();
-            document.getElementById("nav-list").classList.toggle("show");
-        }
-        window.onclick = function(event) {
-            const navList = document.getElementById("nav-list");
-            if (!event.target.closest('nav') && navList.classList.contains('show')) {
-                navList.classList.remove('show');
-            }
-        }
-        const navWrapper = document.getElementById('navWrapper');
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 40) { navWrapper.classList.add('nav-scrolled'); } 
-            else { navWrapper.classList.remove('nav-scrolled'); }
-        });
-        
-        window.addEventListener('load', () => { 
-            const loader = document.getElementById('loader');
-            loader.style.opacity = '0';
-            loader.style.visibility = 'hidden';
-            setTimeout(() => {
-                document.body.style.opacity = '1'; 
-            }, 100);
+        function toggleMenu(e) { e.stopPropagation(); document.getElementById("nav-list").classList.toggle("show"); }
+        window.onclick = () => document.getElementById("nav-list").classList.remove("show");
+
+        window.addEventListener('scroll', () => {
+            const wrapper = document.getElementById('navWrapper');
+            window.scrollY > 40 ? wrapper.classList.add('nav-scrolled') : wrapper.classList.remove('nav-scrolled');
         });
 
-        const form = document.getElementById("saranForm");
-        async function handleSubmit(event) {
-          event.preventDefault();
-          const btn = document.getElementById("submitBtn");
-          const btnText = document.getElementById("btnText");
-          const data = new FormData(event.target);
-          
-          btn.disabled = true;
-          btnText.innerText = "MENGIRIM...";
+        window.addEventListener('load', () => {
+            document.getElementById('loader').style.display = 'none';
+            document.body.style.opacity = '1';
+        });
 
-          fetch(event.target.action, {
-            method: form.method,
-            body: data,
-            headers: { 'Accept': 'application/json' }
-          }).then(response => {
-            if (response.ok) {
-              Swal.fire({
-                title: 'Berhasil Terkirim!',
-                text: 'Terima kasih, pesan Anda telah kami terima dan akan segera diproses.',
-                icon: 'success',
-                confirmButtonColor: '#0b2e26',
-                background: '#fff',
-                timer: 4000,
-                timerProgressBar: true
-              });
-              form.reset();
-            } else {
-              response.json().then(data => {
-                Swal.fire({
-                  title: 'Oops...',
-                  text: data.errors ? data.errors.map(error => error.message).join(", ") : "Terjadi kesalahan saat mengirim pesan.",
-                  icon: 'error',
-                  confirmButtonColor: '#0b2e26'
-                });
-              })
-            }
-          }).catch(error => {
-            Swal.fire({
-                title: 'Kesalahan Koneksi',
-                text: 'Pastikan Anda terhubung ke internet dan coba lagi.',
-                icon: 'warning',
-                confirmButtonColor: '#0b2e26'
-            });
-          }).finally(() => {
-            btn.disabled = false;
-            btnText.innerText = "KIRIM PESAN SEKARANG";
-          });
-        }
-        form.addEventListener("submit", handleSubmit);
+        document.getElementById("saranForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById("submitBtn");
+            btn.disabled = true; btn.innerText = "MENGIRIM...";
+            try {
+                const res = await fetch(e.target.action, { method: 'POST', body: new FormData(e.target), headers: {'Accept': 'application/json'} });
+                if (res.ok) { Swal.fire('Berhasil!', 'Pesan terkirim.', 'success'); e.target.reset(); }
+            } catch { Swal.fire('Error', 'Gagal mengirim.', 'error'); }
+            btn.disabled = false; btn.innerText = "KIRIM PESAN";
+        });
     </script>
 </body>
 </html>
