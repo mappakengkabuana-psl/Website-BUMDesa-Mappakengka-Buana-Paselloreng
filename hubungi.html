@@ -32,7 +32,7 @@
             display: flex; flex-direction: column; opacity: 0; transition: opacity 0.8s ease;
         }
 
-        /* --- EFEK BLOBS (BACK) --- */
+        /* --- EFEK BLOBS --- */
         .bg-blobs { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; overflow: hidden; pointer-events: none; }
         .blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.2; animation: float 20s infinite alternate ease-in-out; }
         .blob-1 { width: 500px; height: 500px; background: var(--eco-light); top: -10%; left: -10%; }
@@ -44,17 +44,38 @@
         .loader-icon { width: 60px; height: 60px; border: 4px solid #eee; border-left-color: var(--eco-light); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* --- NAVIGASI (IDENTIK DENGAN ACUAN) --- */
-        .nav-wrapper { position: fixed; top: 0; left: 0; width: 100%; z-index: 9999; padding: 20px; display: flex; justify-content: center; transition: 0.4s; pointer-events: none; }
-        nav { pointer-events: auto; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(15px); border: 1px solid var(--glass-border); border-radius: 15px; padding: 8px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+        /* --- NAVIGASI (MENGIKUTI STANDAR SCRIPT 2) --- */
+        .nav-wrapper { 
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 9999; 
+            padding: 20px; display: flex; justify-content: center; 
+            transition: all 0.4s ease; pointer-events: none; 
+        }
+        
+        nav { 
+            pointer-events: auto; background: rgba(255, 255, 255, 0.6); 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
+            border: 1px solid var(--glass-border); 
+            border-radius: 15px; padding: 8px; 
+            box-shadow: 0 5px 20px rgba(11, 46, 38, 0.1); 
+        }
+
         .nav-scrolled { padding: 10px 20px; }
-        .nav-scrolled nav { background: rgba(255, 255, 255, 0.95); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .nav-scrolled nav { background: rgba(255, 255, 255, 0.95); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+
         nav ul { display: flex; list-style: none; gap: 2px; }
-        nav ul li a { text-decoration: none; color: var(--primary-green); font-weight: 600; font-size: 0.75rem; padding: 12px 18px; border-radius: 10px; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
-        nav ul li a:hover { background: rgba(11, 46, 38, 0.05); }
-        nav ul li a.active { background: var(--primary-green); color: #fff; }
+        nav ul li a { 
+            text-decoration: none; color: var(--primary-green); 
+            font-weight: 600; font-size: 0.75rem; padding: 12px 18px; 
+            border-radius: 10px; transition: 0.3s; 
+            display: flex; align-items: center; gap: 8px; white-space: nowrap; 
+        }
+        nav ul li a:hover { background: rgba(11, 46, 38, 0.1); }
+        nav ul li a.active { background: var(--primary-green); color: #fff; box-shadow: 0 4px 12px rgba(11, 46, 38, 0.2); }
+
+        /* Hamburger Styles (STANDAR SCRIPT 2) */
         .hamburger-menu { display: none; cursor: pointer; padding: 10px; }
-        .line { height: 3px; width: 22px; background: var(--primary-green); display: block; margin: 4px 0; border-radius: 2px; }
+        .hamburger-lines { width: 22px; height: 16px; display: flex; flex-direction: column; justify-content: space-between; }
+        .line { height: 3px; width: 100%; background: var(--primary-green); border-radius: 100px; transition: 0.3s; }
 
         /* --- CONTENT AREA --- */
         .content-area { flex: 1; max-width: 1100px; margin: 140px auto 60px; padding: 0 20px; width: 100%; z-index: 1; }
@@ -77,9 +98,9 @@
         .btn-send { width: 100%; padding: 15px; border-radius: 10px; border: none; background: var(--primary-green); color: white; font-weight: 700; cursor: pointer; transition: 0.3s; margin-top: 10px; }
         .btn-send:hover { background: var(--eco-light); transform: translateY(-2px); }
 
-        /* --- PERBAIKAN MAP CARD --- */
+        /* MAP CARD */
         .map-card { 
-            grid-column: 1 / -1; /* Membuat map memanjang penuh di bawah dua kolom tadi */
+            grid-column: 1 / -1; 
             height: 450px; 
             background: white;
             border-radius: 24px; 
@@ -101,10 +122,15 @@
         @media (max-width: 768px) {
             .nav-wrapper { justify-content: flex-end; padding: 15px; }
             .hamburger-menu { display: block; }
-            nav ul { display: none; flex-direction: column; position: absolute; top: 70px; right: 20px; width: 240px; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-            nav ul.show { display: flex; }
+            nav ul { 
+                display: none; flex-direction: column; position: absolute; 
+                top: 70px; right: 20px; width: 260px; background: white; 
+                padding: 15px; border-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.15); 
+            }
+            nav ul.show { display: flex; animation: fadeInDown 0.3s ease forwards; }
             .map-card { height: 300px; }
         }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -118,8 +144,13 @@
 
     <div class="nav-wrapper" id="navWrapper">
         <nav>
+            <!-- Hamburger Menu dengan Struktur Script 2 -->
             <div class="hamburger-menu" onclick="toggleMenu(event)">
-                <span class="line"></span><span class="line"></span><span class="line"></span>
+                <div class="hamburger-lines">
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
+                </div>
             </div>
             <ul id="nav-list">
                 <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
@@ -139,7 +170,6 @@
         </header>
 
         <div class="contact-grid">
-            <!-- Kolom Kiri: Info -->
             <div class="animate__animated animate__fadeInLeft">
                 <div class="info-card">
                     <h3 style="margin-bottom: 20px; color: var(--accent-lime);">Kontak Kami</h3>
@@ -154,7 +184,6 @@
                 </div>
             </div>
 
-            <!-- Kolom Kanan: Form -->
             <div class="animate__animated animate__fadeInRight">
                 <div class="form-card">
                     <form id="saranForm" action="https://formspree.io/f/xvzdbbze" method="POST">
@@ -166,7 +195,6 @@
                 </div>
             </div>
 
-            <!-- Baris Bawah: Map (Utuh & Luas) -->
             <div class="map-card animate__animated animate__fadeInUp">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31847.274904490463!2d120.17296693476563!3d-3.8296171000000134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d967f002f081de9%3A0x73f1673b2acee1d1!2sBUM%20Desa%20Mappakengka%20Buana%20Paselloreng!5e0!3m2!1sid!2sid!4v1715535149435!5m2!1sid!2sid" allowfullscreen="" loading="lazy"></iframe>
             </div>
@@ -178,8 +206,18 @@
     </footer>
 
     <script>
-        function toggleMenu(e) { e.stopPropagation(); document.getElementById("nav-list").classList.toggle("show"); }
-        window.onclick = () => document.getElementById("nav-list").classList.remove("show");
+        // Logika Menu yang Diperbarui (Standar Script 2)
+        function toggleMenu(event) {
+            event.stopPropagation();
+            document.getElementById("nav-list").classList.toggle("show");
+        }
+
+        window.onclick = function(event) {
+            const navList = document.getElementById("nav-list");
+            if (!event.target.closest('nav') && navList.classList.contains('show')) {
+                navList.classList.remove('show');
+            }
+        }
 
         window.addEventListener('scroll', () => {
             const wrapper = document.getElementById('navWrapper');
