@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LPJ & Dokumentasi - BUMDesa Mappakengka Buana</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        :root {
+            --primary-green: #0b2e26;
+            --eco-medium: #1e5128;
+            --eco-light: #4e944f;
+            --accent-lime: #b4ff9f;
+            --glass-bg: rgba(255, 255, 255, 0.85); 
+            --glass-border: rgba(255, 255, 255, 0.9);
+            --text-main: #0b2e26;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Sora', sans-serif; }
+
+        body {
+            background: linear-gradient(rgba(244, 252, 244, 0.92), rgba(244, 252, 244, 0.92)),
+                        url('https://images.unsplash.com/photo-1454165833767-027ffea9e77b?auto=format&fit=crop&q=80');
+            background-size: cover; background-attachment: fixed;
+            min-height: 100vh; color: var(--text-main);
+        }
+
+        /* --- FIXED NAVIGATION --- */
+        .nav-wrapper { 
+            position: fixed; 
+            top: 0; left: 0; width: 100%; 
+            z-index: 9999; padding: 20px; 
+            display: flex; justify-content: center;
+            transition: all 0.4s ease;
+            pointer-events: none;
+        }
+        
+        nav { 
+            pointer-events: auto; 
+            background: rgba(255, 255, 255, 0.6); 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
+            border: 1px solid var(--glass-border); 
+            border-radius: 15px; padding: 8px; 
+            box-shadow: 0 5px 20px rgba(11, 46, 38, 0.1); 
+            transition: all 0.3s ease;
+        }
+
+        .nav-scrolled { padding: 10px 20px; }
+        .nav-scrolled nav { background: rgba(255, 255, 255, 0.95); }
+
+        nav ul { display: flex; list-style: none; }
+        nav ul li a {
+            text-decoration: none; color: var(--primary-green);
+            font-weight: 600; font-size: 0.75rem; padding: 12px 25px;
+            border-radius: 10px; transition: 0.3s;
+            display: flex; align-items: center; gap: 8px;
+        }
+        nav ul li a:hover { background: rgba(11, 46, 38, 0.1); }
+
+        /* --- CONTENT AREA --- */
+        .content-container { max-width: 1450px; margin: 130px auto 60px; padding: 0 20px; }
+
+        .header-section { text-align: center; margin-bottom: 40px; }
+        .header-section h1 { font-size: 2.2rem; font-weight: 800; color: var(--primary-green); }
+
+        /* Grid System 3 Kolom */
+        .lpj-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .doc-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            height: 700px;
+        }
+
+        .card-header {
+            display: flex; align-items: center; gap: 10px;
+            margin-bottom: 15px; padding-bottom: 10px;
+            border-bottom: 2px solid rgba(11, 46, 38, 0.05);
+        }
+        .card-header i { color: var(--eco-light); font-size: 1.2rem; }
+        .card-header h3 { font-size: 1rem; color: var(--primary-green); }
+
+        .viewer-box { flex: 1; background: white; border-radius: 12px; overflow: hidden; margin-bottom: 15px; border: 1px solid #eee; }
+        iframe { width: 100%; height: 100%; border: none; }
+
+        /* --- SLIDER STYLES --- */
+        .slider-container {
+            position: relative; width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .slide { display: none; width: 100%; height: 100%; object-fit: cover; }
+        .slide.active { display: block; animation: fadeIn 0.5s; }
+        
+        .slider-btn {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(11, 46, 38, 0.7); color: white; border: none;
+            padding: 10px; cursor: pointer; border-radius: 50%; transition: 0.3s;
+        }
+        .slider-btn:hover { background: var(--primary-green); }
+        .prev { left: 10px; }
+        .next { right: 10px; }
+
+        .btn-download {
+            background: var(--primary-green); color: white;
+            padding: 12px; border-radius: 10px; text-decoration: none;
+            font-weight: 700; text-align: center; font-size: 0.8rem;
+            transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .btn-download:hover { background: var(--eco-medium); transform: translateY(-2px); }
+
+        footer { text-align: center; padding: 40px; font-size: 0.8rem; color: var(--primary-green); font-weight: 600; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Responsive */
+        @media (max-width: 1200px) { .lpj-grid { grid-template-columns: 1fr; } .doc-card { height: 600px; } }
+    </style>
+</head>
+<body>
+
+    <div class="nav-wrapper" id="navWrapper">
+        <nav id="navbar">
+            <ul id="nav-list">
+                <li><a href="transparansi.html"><i class="fas fa-arrow-left"></i> KEMBALI KE TRANSPARANSI</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="content-container animate__animated animate__fadeIn">
+        <div class="header-section">
+            <h1>Laporan Pertanggungjawaban <span>(LPJ)</span></h1>
+            <p style="color: var(--eco-medium); font-weight: 600;">Transparansi Tata Kelola Keuangan BUMDesa</p>
+        </div>
+
+        <div class="lpj-grid">
+            <div class="doc-card">
+                <div class="card-header">
+                    <i class="fas fa-file-invoice"></i>
+                    <h3>Dokumen LPJ</h3>
+                </div>
+                <div class="viewer-box">
+                    <iframe src="lpj2025.pdf#toolbar=0&navpanes=0&view=Fith"></iframe>
+                </div>
+                <a href="lpj2025.pdf" download class="btn-download">
+                    <i class="fas fa-download"></i> UNDUH LPJ
+                </a>
+            </div>
+
+            <div class="doc-card">
+                <div class="card-header">
+                    <i class="fas fa-file-signature"></i>
+                    <h3>Berita Acara Musdes</h3>
+                </div>
+                <div class="viewer-box">
+                    <iframe src="ba2025.pdf#toolbar=0&navpanes=0&view=Fith"></iframe>
+                </div>
+                <a href="ba2025.pdf" download class="btn-download">
+                    <i class="fas fa-download"></i> UNDUH BERITA ACARA
+                </a>
+            </div>
+
+            <div class="doc-card">
+                <div class="card-header">
+                    <i class="fas fa-camera"></i>
+                    <h3>Dokumentasi Kegiatan Musdes</h3>
+                </div>
+                <div class="viewer-box">
+                    <div class="slider-container">
+                        <img src="laporan2025.jpeg" class="slide active" alt="Pemaparan LPJ">
+                        <img src="peserta2025.jpeg" class="slide" alt="Peserta Musdes">
+                        
+                        <button class="slider-btn prev" onclick="changeSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+                        <button class="slider-btn next" onclick="changeSlide(1)"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <p style="font-size: 0.75rem; text-align: center; color: var(--eco-medium); font-weight: 600;">
+                    Slide untuk melihat foto lainnya
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 BUMDesa Mappakengka Buana Paselloreng. <br> Desa Paselloreng, Kec. Gilireng, Kab. Wajo.</p>
+    </footer>
+
+    <script>
+        // Nav Scroll Effect
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('navWrapper');
+            if (window.scrollY > 40) nav.classList.add('nav-scrolled');
+            else nav.classList.remove('nav-scrolled');
+        });
+
+        // Slider Logic
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function changeSlide(direction) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + direction + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+    </script>
+
+</body>
+</html>

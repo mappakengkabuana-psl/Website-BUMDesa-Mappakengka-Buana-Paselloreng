@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Usaha - BUMDesa Mappakengka Buana Paselloreng</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        :root {
+            --primary-green: #0b2e26;
+            --eco-medium: #1e5128;
+            --eco-light: #4e944f;
+            --accent-lime: #b4ff9f;
+            --glass-bg: rgba(255, 255, 255, 0.8); 
+            --glass-border: rgba(255, 255, 255, 0.9);
+            --text-main: #0b2e26;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Sora', sans-serif; }
+
+        body {
+            /* PERUBAHAN: Background disamakan dengan halaman Pendirian (Pemandangan Sawah) */
+            background: 
+                linear-gradient(rgba(244, 252, 244, 0.85), rgba(244, 252, 244, 0.85)),
+                url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            /* -------------------------------------------------------------------------- */
+            min-height: 100vh;
+            color: var(--text-main);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        /* Blobs disesuaikan agar lembut seperti di halaman Pendirian */
+        .bg-blobs { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -2; overflow: hidden; }
+        .blob { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.15; animation: float 25s infinite alternate ease-in-out; }
+        .blob-1 { width: 600px; height: 600px; background: var(--eco-light); top: -15%; left: -10%; }
+        .blob-2 { width: 500px; height: 500px; background: var(--accent-lime); bottom: 5%; right: -10%; }
+
+        @keyframes float { 0% { transform: translate(0, 0) rotate(0deg); } 100% { transform: translate(60px, 100px) rotate(10deg); } }
+
+        /* --- FIXED NAVIGATION STABIL --- */
+        .nav-wrapper { 
+            position: fixed; 
+            top: 0; 
+            left: 0;
+            width: 100%; 
+            z-index: 9999; 
+            padding: 20px; 
+            display: flex; 
+            justify-content: center;
+            transition: all 0.4s ease;
+            pointer-events: none;
+        }
+        
+        nav { 
+            pointer-events: auto;
+            max-width: 1100px; 
+            width: auto;
+            background: rgba(255, 255, 255, 0.6); 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
+            border: 1px solid var(--glass-border); 
+            border-radius: 15px;
+            padding: 8px; 
+            box-shadow: 0 5px 20px rgba(11, 46, 38, 0.1); 
+            transition: all 0.3s ease;
+        }
+
+        .nav-scrolled { padding: 10px 20px; }
+        .nav-scrolled nav { 
+            background: rgba(255, 255, 255, 0.95); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        nav ul { display: flex; list-style: none; gap: 2px; }
+        nav ul li a {
+            text-decoration: none; color: var(--primary-green);
+            font-weight: 600; font-size: 0.75rem; padding: 12px 18px;
+            border-radius: 10px; transition: 0.3s;
+            display: flex; align-items: center; gap: 8px;
+            white-space: nowrap; letter-spacing: 0.5px;
+        }
+        nav ul li a:hover { background: rgba(11, 46, 38, 0.1); }
+        nav ul li a.active { background: var(--primary-green); color: #fff; box-shadow: 0 4px 12px rgba(11, 46, 38, 0.2); }
+
+        .hamburger-menu { display: none; cursor: pointer; padding: 10px; }
+        .hamburger-lines { width: 22px; height: 16px; display: flex; flex-direction: column; justify-content: space-between; }
+        .line { height: 3px; width: 100%; background: var(--primary-green); border-radius: 100px; }
+
+        /* --- CONTENT AREA --- */
+        .content-area { flex: 1 0 auto; max-width: 1000px; margin: 140px auto 60px; padding: 0 20px; width: 100%; position: relative; z-index: 1; }
+        
+        .header-title { text-align: center; padding-bottom: 50px; }
+        .header-title h1 { 
+            font-size: 3.2rem; color: var(--primary-green); font-weight: 800; 
+            margin-bottom: 12px; letter-spacing: -1.5px; line-height: 1.1;
+        }
+        .header-title h1 span { color: var(--eco-light); }
+
+        /* Section Cards */
+        .section-card {
+            background: var(--glass-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border); border-radius: 24px;
+            padding: 45px; margin-bottom: 35px; 
+            box-shadow: 0 10px 40px rgba(11, 46, 38, 0.06);
+            transition: all 0.4s ease;
+            position: relative; overflow: hidden;
+        }
+        .section-card:hover { transform: translateY(-5px); box-shadow: 0 15px 45px rgba(11, 46, 38, 0.1); }
+        .section-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+            background: linear-gradient(90deg, var(--eco-light), var(--accent-lime));
+        }
+
+        .section-title { 
+            color: var(--primary-green); margin-bottom: 30px; display: flex; 
+            align-items: center; gap: 15px; font-size: 1.7rem; font-weight: 700; 
+        }
+        .section-title i { color: var(--eco-light); }
+
+        /* Unit Grid */
+        .unit-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 25px; 
+        }
+
+        .unit-item {
+            /* PERUBAHAN: Menyesuaikan transparansi item agar senada dengan nuansa baru */
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.9);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .unit-item:hover {
+            background: #fff;
+            transform: scale(1.02);
+            box-shadow: 0 15px 30px rgba(11, 46, 38, 0.1);
+            border-color: var(--eco-light);
+        }
+
+        .unit-icon {
+            width: 60px; height: 60px;
+            background: var(--primary-green);
+            color: var(--accent-lime);
+            border-radius: 15px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .unit-item h3 { color: var(--primary-green); font-size: 1.25rem; font-weight: 700; }
+        .unit-item p { font-size: 0.9rem; color: #333; line-height: 1.6; }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--accent-lime);
+            color: var(--primary-green);
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            align-self: flex-start;
+        }
+
+        /* Footer disesuaikan agar senada dengan halaman Pendirian */
+        footer { text-align: center; padding: 40px; font-size: 0.8rem; color: var(--primary-green); font-weight: 600; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(5px); }
+
+        /* Responsive Mobile */
+        @media (max-width: 768px) {
+            .nav-wrapper { justify-content: flex-end; padding: 15px; }
+            nav { border-radius: 12px; }
+            .hamburger-menu { display: block; }
+            nav ul {
+                display: none; flex-direction: column; position: absolute;
+                top: 70px; right: 20px; width: 260px; background: white;
+                padding: 15px; border-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+                z-index: 10000;
+            }
+            nav ul.show { display: flex; animation: fadeInDown 0.3s ease forwards; }
+            .header-title h1 { font-size: 2.3rem; }
+            .section-card { padding: 30px 20px; }
+            .unit-grid { grid-template-columns: 1fr; }
+        }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body> 
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="nav-wrapper" id="navWrapper">
+        <nav id="navbar">
+            <div class="hamburger-menu" onclick="toggleMenu(event)">
+                <div class="hamburger-lines">
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
+                </div>
+            </div>
+            <ul id="nav-list">
+                <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
+                <li><a href="pendirian.html"><i class="fas fa-file-alt"></i> PENDIRIAN</a></li>
+                <li><a href="unit-usaha.html" class="active"><i class="fas fa-store"></i> UNIT USAHA</a></li>
+                <li><a href="pengurus.html"><i class="fas fa-users"></i> PENGURUS</a></li>
+                <li><a href="transparansi.html"><i class="fas fa-chart-line"></i> INFORMASI</a></li>
+                <li><a href="hubungi.html"><i class="fas fa-envelope"></i> HUBUNGI</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="content-area">
+        <header class="header-title animate__animated animate__fadeIn">
+            <h1>Unit <span>Usaha</span></h1>
+            <p style="color: var(--eco-medium); font-weight: 700; text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; margin-top: 10px;">Menggerakkan Ekonomi Desa Paselloreng</p>
+        </header>
+
+        <section class="section-card animate__animated animate__fadeInUp">
+            <h2 class="section-title"><i class="fas fa-briefcase"></i> Portofolio Usaha</h2>
+            <div class="unit-grid">
+                
+                <div class="unit-item">
+                    <div class="status-badge">Aktif</div>
+                    <div class="unit-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                    <h3>Simpan Pinjam</h3>
+                    <p>Memberikan solusi permodalan mikro bagi warga desa dan pelaku UMKM lokal dengan skema yang mudah dan kekeluargaan.</p>
+                </div>
+
+                <div class="unit-item">
+                    <div class="status-badge">Aktif</div>
+                    <div class="unit-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <h3>Perdagangan</h3>
+                    <p>Penyediaan kebutuhan pokok, sarana produksi pertanian, dan distribusi barang konsumsi untuk menjaga stabilitas harga di desa.</p>
+                </div>
+
+                <div class="unit-item">
+                    <div class="status-badge">Aktif</div>
+                    <div class="unit-icon"><i class="fas fa-tools"></i></div>
+                    <h3>Penyewaan</h3>
+                    <p>Layanan sewa alat pesta, alat berat pertanian, dan gedung pertemuan desa untuk mendukung produktivitas dan kegiatan sosial warga.</p>
+                </div>
+
+                <div class="unit-item">
+                    <div class="status-badge">Strategis</div>
+                    <div class="unit-icon"><i class="fas fa-seedling"></i></div>
+                    <h3>Ketahanan Pangan</h3>
+                    <p>Pengelolaan lumbung pangan desa, optimalisasi lahan pertanian, dan budidaya lokal untuk menjamin ketersediaan pangan mandiri.</p>
+                </div>
+
+                <div class="unit-item">
+                    <div class="status-badge">Pengembangan</div>
+                    <div class="unit-icon"><i class="fas fa-concierge-bell"></i></div>
+                    <h3>Layanan Lainnya</h3>
+                    <p>Unit jasa kreatif mencakup pembayaran digital (PPOB), kemitraan pihak ketiga, dan jasa kurir desa.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="section-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+            <h2 class="section-title"><i class="fas fa-info-circle"></i> Sinergi Ekonomi</h2>
+            <p style="font-size: 0.95rem; line-height: 1.8; color: #333;">
+                Seluruh unit usaha dikelola secara profesional dengan prinsip transparan dan akuntabel. Pendapatan yang dihasilkan dialokasikan kembali untuk pembangunan desa dan peningkatan kesejahteraan masyarakat melalui Pendapatan Asli Desa (PADes).
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 BUMDesa Mappakengka Buana Paselloreng. <br> Desa Paselloreng, Kec. Gilireng, Kab. Wajo.</p>
+    </footer>
+
+    <script>
+        // Toggle Mobile Menu
+        function toggleMenu(event) {
+            event.stopPropagation();
+            document.getElementById("nav-list").classList.toggle("show");
+        }
+
+        // Close menu when clicking outside
+        window.onclick = function(event) {
+            const navList = document.getElementById("nav-list");
+            if (!event.target.closest('nav') && navList.classList.contains('show')) {
+                navList.classList.remove('show');
+            }
+        }
+
+        // Navbar Scroll Effect Stabil
+        const navWrapper = document.getElementById('navWrapper');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 40) {
+                navWrapper.classList.add('nav-scrolled');
+            } else {
+                navWrapper.classList.remove('nav-scrolled');
+            }
+        });
+
+        // Page Load Fade In
+        window.addEventListener('load', () => { 
+            document.body.style.opacity = '1'; 
+        });
+    </script>
+</body>
+</html>

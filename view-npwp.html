@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NPWP - BUMDesa Mappakengka Buana Paselloreng</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        :root {
+            --primary-green: #0b2e26;
+            --eco-medium: #1e5128;
+            --eco-light: #4e944f;
+            --accent-lime: #b4ff9f;
+            --glass-bg: rgba(255, 255, 255, 0.85); 
+            --glass-border: rgba(255, 255, 255, 0.9);
+            --text-main: #0b2e26;
+            --tax-yellow: #f1c40f;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Sora', sans-serif; }
+
+        body {
+            background: 
+                linear-gradient(rgba(244, 252, 244, 0.92), rgba(244, 252, 244, 0.92)),
+                url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80'); /* Tema finansial/pajak */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: var(--text-main);
+        }
+
+        /* --- FIXED NAVIGATION --- */
+        .nav-wrapper { 
+            position: fixed; 
+            top: 0; left: 0; width: 100%; 
+            z-index: 9999; padding: 20px; 
+            display: flex; justify-content: center;
+            transition: all 0.4s ease;
+            pointer-events: none;
+        }
+        
+        nav { 
+            pointer-events: auto; 
+            background: rgba(255, 255, 255, 0.6); 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
+            border: 1px solid var(--glass-border); 
+            border-radius: 15px; padding: 8px; 
+            box-shadow: 0 5px 20px rgba(11, 46, 38, 0.1); 
+            transition: all 0.3s ease;
+        }
+
+        .nav-scrolled { padding: 10px 20px; }
+        .nav-scrolled nav { background: rgba(255, 255, 255, 0.95); }
+
+        nav ul { display: flex; list-style: none; }
+        nav ul li a {
+            text-decoration: none; color: var(--primary-green);
+            font-weight: 600; font-size: 0.75rem; padding: 12px 25px;
+            border-radius: 10px; transition: 0.3s;
+            display: flex; align-items: center; gap: 8px;
+        }
+        nav ul li a:hover { background: rgba(11, 46, 38, 0.1); }
+
+        /* --- CONTENT AREA --- */
+        .content-container { max-width: 900px; margin: 140px auto 60px; padding: 0 20px; }
+
+        .tax-card-visual {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--eco-medium) 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 30px rgba(11, 46, 38, 0.2);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tax-card-visual::after {
+            content: '\f1ad'; /* Ikon Gedung Pajak */
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            right: -20px; bottom: -20px;
+            font-size: 10rem;
+            opacity: 0.1;
+        }
+
+        .tax-label p { font-size: 0.7rem; letter-spacing: 2px; opacity: 0.8; margin-bottom: 5px; }
+        .tax-label h2 { font-size: 1.8rem; letter-spacing: 1px; color: var(--tax-yellow); }
+
+        .viewer-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 20px 50px rgba(11, 46, 38, 0.1);
+            border: 1px solid var(--glass-border);
+        }
+
+        .pdf-frame-container {
+            width: 100%;
+            height: 60vh;
+            border-radius: 15px;
+            overflow: hidden;
+            background: white;
+            border: 1px solid #eee;
+            margin-bottom: 25px;
+        }
+
+        iframe { width: 100%; height: 100%; border: none; }
+
+        .btn-download {
+            background: var(--primary-green);
+            color: white;
+            padding: 16px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.4s ease;
+        }
+
+        .btn-download:hover {
+            background: var(--eco-light);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(11, 46, 38, 0.2);
+        }
+
+        footer { text-align: center; padding: 40px; font-size: 0.8rem; color: var(--primary-green); font-weight: 600; }
+
+        @media (max-width: 768px) {
+            .content-container { margin-top: 120px; }
+            .tax-card-visual { flex-direction: column; text-align: center; gap: 15px; }
+            .tax-label h2 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav-wrapper" id="navWrapper">
+        <nav id="navbar">
+            <ul id="nav-list">
+                <li><a href="pendirian.html"><i class="fas fa-arrow-left"></i> KEMBALI KE LEGALITAS</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="content-container animate__animated animate__fadeIn">
+        
+        <div class="tax-card-visual">
+            <div class="tax-label">
+                <p>NOMOR POKOK WAJIB PAJAK (NPWP)</p>
+                <h2>1000 0000 0569 2127</h2>
+            </div>
+            <div class="tax-icon">
+                <i class="fas fa-university fa-3x" style="color: var(--tax-yellow);"></i>
+            </div>
+        </div>
+
+        <div class="viewer-card">
+            <div class="pdf-frame-container">
+                <iframe src="npwp.pdf#toolbar=0&navpanes=0&view=Fith" type="application/pdf">
+                    <p>Browser tidak mendukung pratinjau. <a href="npwp.pdf">Unduh di sini.</a></p>
+                </iframe>
+            </div>
+            
+            <a href="npwp.pdf" download class="btn-download">
+                <i class="fas fa-file-invoice-dollar"></i> UNDUH DOKUMEN
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 BUMDesa Mappakengka Buana Paselloreng. <br> Desa Paselloreng, Kec. Gilireng, Kab. Wajo.</p>
+    </footer>
+
+    <script>
+        const navWrapper = document.getElementById('navWrapper');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 40) {
+                navWrapper.classList.add('nav-scrolled');
+            } else {
+                navWrapper.classList.remove('nav-scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
