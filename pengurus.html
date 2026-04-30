@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengurus - BUMDesa Mappakengka Buana Paselloreng</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        :root {
+            --primary-green: #0b2e26;
+            --eco-medium: #1e5128;
+            --eco-light: #4e944f;
+            --accent-lime: #b4ff9f;
+            --glass-bg: rgba(255, 255, 255, 0.8); 
+            --glass-border: rgba(255, 255, 255, 0.9);
+            --text-main: #0b2e26;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Sora', sans-serif; }
+
+        body {
+            /* Background disamakan dengan nuansa alam pedesaan */
+            background: 
+                linear-gradient(rgba(244, 252, 244, 0.85), rgba(244, 252, 244, 0.85)),
+                url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            /* ----------------------------------------- */
+            min-height: 100vh;
+            color: var(--text-main);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        /* --- FIXED NAVIGATION --- */
+        .nav-wrapper { 
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 9999; 
+            padding: 20px; display: flex; justify-content: center;
+            transition: all 0.4s ease; pointer-events: none;
+        }
+        
+        nav { 
+            pointer-events: auto; max-width: 1100px; width: auto;
+            background: rgba(255, 255, 255, 0.6); 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
+            border: 1px solid var(--glass-border); 
+            border-radius: 15px; padding: 8px; 
+            box-shadow: 0 5px 20px rgba(11, 46, 38, 0.1); 
+            transition: all 0.3s ease;
+        }
+
+        .nav-scrolled { padding: 10px 20px; }
+        .nav-scrolled nav { background: rgba(255, 255, 255, 0.95); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+
+        nav ul { display: flex; list-style: none; gap: 2px; }
+        nav ul li a {
+            text-decoration: none; color: var(--primary-green);
+            font-weight: 600; font-size: 0.75rem; padding: 12px 18px;
+            border-radius: 10px; transition: 0.3s;
+            display: flex; align-items: center; gap: 8px;
+            white-space: nowrap; letter-spacing: 0.5px;
+        }
+        nav ul li a:hover { background: rgba(11, 46, 38, 0.1); }
+        nav ul li a.active { background: var(--primary-green); color: #fff; box-shadow: 0 4px 12px rgba(11, 46, 38, 0.2); }
+
+        .hamburger-menu { display: none; cursor: pointer; padding: 10px; }
+        .hamburger-lines { width: 22px; height: 16px; display: flex; flex-direction: column; justify-content: space-between; }
+        .line { height: 3px; width: 100%; background: var(--primary-green); border-radius: 100px; }
+
+        /* --- CONTENT AREA --- */
+        .content-area { flex: 1 0 auto; max-width: 1100px; margin: 140px auto 60px; padding: 0 20px; width: 100%; position: relative; z-index: 1; }
+        .header-title { text-align: center; padding-bottom: 50px; }
+        .header-title h1 { font-size: 3.2rem; color: var(--primary-green); font-weight: 800; margin-bottom: 12px; letter-spacing: -1.5px; line-height: 1.1; }
+        .header-title h1 span { color: var(--eco-light); }
+
+        .section-card { 
+            background: var(--glass-bg); backdrop-filter: blur(15px); border: 1px solid var(--glass-border); 
+            border-radius: 24px; padding: 45px; margin-bottom: 35px; 
+            box-shadow: 0 10px 40px rgba(11, 46, 38, 0.06); position: relative; overflow: hidden; 
+        }
+        .section-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, var(--eco-light), var(--accent-lime)); }
+
+        .section-title { color: var(--primary-green); margin-bottom: 35px; display: flex; align-items: center; justify-content: center; gap: 15px; font-size: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .org-level { margin-bottom: 60px; }
+        .members-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; justify-content: center; }
+        
+        /* Member Card Styling */
+        .member-card {
+            background: rgba(255, 255, 255, 0.9); border-radius: 22px; padding: 30px 20px; text-align: center;
+            border: 1px solid rgba(0,0,0,0.05); transition: 0.3s;
+            position: relative; max-width: 320px; margin: 0 auto;
+        }
+        .member-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(11, 46, 38, 0.12); border-color: var(--eco-light); }
+        
+        .status-pill { position: absolute; top: 15px; right: 15px; font-size: 0.65rem; font-weight: 800; padding: 4px 10px; border-radius: 100px; text-transform: uppercase; }
+        .status-aktif { background: #e3ffeb; color: #1e5128; }
+
+        /* PERUBAHAN: Styling Avatar diubah untuk memuat FOTO */
+        .member-avatar { 
+            width: 90px; height: 90px; /* Sedikit diperbesar agar foto jelas */
+            border-radius: 50%; 
+            margin: 0 auto 15px; 
+            border: 3px solid var(--accent-lime); 
+            overflow: hidden; /* Memastikan foto tetap bulat */
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .member-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Foto akan mengisi penuh lingkaran tanpa distorsi */
+        }
+        /* Fallback jika foto gagal dimuat */
+        .member-avatar i {
+            font-size: 2.2rem;
+            color: var(--eco-light);
+        }
+        /* ----------------------------------------------------------- */
+        
+        .member-card h4 { color: var(--primary-green); font-size: 1.1rem; margin-bottom: 2px; font-weight: 700; }
+        .member-card .jabatan { color: var(--eco-light); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; display: block; }
+        
+        .member-info { text-align: left; background: #f9fdf9; padding: 15px; border-radius: 12px; border: 1px solid #edf5ed; }
+        .info-row { display: flex; flex-direction: column; margin-bottom: 8px; }
+        .info-label { font-size: 0.65rem; color: #888; font-weight: 600; text-transform: uppercase; }
+        .info-value { font-size: 0.85rem; color: var(--primary-green); font-weight: 600; }
+
+        .btn-sk { display: inline-flex; align-items: center; gap: 10px; background: var(--primary-green); color: #fff; padding: 15px 30px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 0.9rem; margin-top: 20px; transition: 0.3s; box-shadow: 0 5px 15px rgba(11, 46, 38, 0.2); }
+        .btn-sk:hover { background: var(--eco-medium); transform: scale(1.05); }
+
+        footer { text-align: center; padding: 40px; font-size: 0.8rem; color: var(--primary-green); font-weight: 600; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(5px); }
+
+        /* Responsive Mobile */
+        @media (max-width: 768px) {
+            .nav-wrapper { justify-content: flex-end; padding: 15px; }
+            .hamburger-menu { display: block; }
+            nav ul {
+                display: none; flex-direction: column; position: absolute;
+                top: 70px; right: 20px; width: 260px; background: white;
+                padding: 15px; border-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+                z-index: 10000;
+            }
+            nav ul.show { display: flex; animation: fadeInDown 0.3s ease forwards; }
+            .header-title h1 { font-size: 2.3rem; }
+            .section-card { padding: 35px 20px; }
+        }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body> 
+    <div class="nav-wrapper" id="navWrapper">
+        <nav id="navbar">
+            <div class="hamburger-menu" onclick="toggleMenu(event)">
+                <div class="hamburger-lines">
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
+                </div>
+            </div>
+            <ul id="nav-list">
+                <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
+                <li><a href="pendirian.html"><i class="fas fa-file-alt"></i> PENDIRIAN</a></li>
+                <li><a href="unit-usaha.html"><i class="fas fa-store"></i> UNIT USAHA</a></li>
+                <li><a href="pengurus.html" class="active"><i class="fas fa-users"></i> PENGURUS</a></li>
+                <li><a href="transparansi.html"><i class="fas fa-chart-line"></i> INFORMASI</a></li>
+                <li><a href="hubungi.html"><i class="fas fa-envelope"></i> HUBUNGI</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="content-area">
+        <header class="header-title animate__animated animate__fadeIn">
+            <h1>Struktur <span>Organisasi</span></h1>
+            <p style="color: var(--eco-medium); font-weight: 700; text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; margin-top: 10px;">Tata Kelola BUMDesa Mappakengka Buana</p>
+        </header>
+
+        <section class="section-card animate__animated animate__fadeInUp">
+            <div class="org-level">
+                <h2 class="section-title"><i class="fas fa-crown"></i> Otoritas Tertinggi</h2>
+                <div class="member-card" style="border: 2px solid var(--eco-light);">
+                    <div class="status-pill status-aktif" style="background: var(--primary-green); color: #fff;">Forum</div>
+                    <!-- PERUBAHAN: Icon diganti Foto Musyawarah -->
+                    <div class="member-avatar" style="border-color: var(--primary-green);">
+                        <img src="peserta2025.jpeg" alt="Foto Musyawarah Desa">
+                    </div>
+                    <h4>Musyawarah Desa</h4>
+                    <span class="jabatan">Kekuasaan Tertinggi</span>
+                    <div class="member-info" style="text-align: center;">
+                        <p style="font-size: 0.8rem; color: #555;">Representasi seluruh elemen masyarakat desa dalam pengambilan keputusan strategis.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="org-level">
+                <div class="members-grid">
+                    <div>
+                        <h2 class="section-title"><i class="fas fa-user-tie"></i> Penasehat</h2>
+                        <div class="member-card">
+                            <div class="status-pill status-aktif">Aktif</div>
+                            <!-- PERUBAHAN: Icon diganti Foto Andi Fanzir -->
+                            <div class="member-avatar">
+                                <img src="andifanzir.png" alt="Foto Andi Fanzir,S.Pd">
+                            </div>
+                            <h4>Andi Fanzir,S.Pd</h4>
+                            <span class="jabatan">Pj. Kepala Desa Paselloreng</span>
+                            <div class="member-info">
+                                <div class="info-row"><span class="info-label">NIK</span><span class="info-value">73************01</span></div>
+                                <div class="info-row"><span class="info-label">TTL</span><span class="info-value">Sakkoli, 25-01-19**</span></div>
+                                <div class="info-row"><span class="info-label">Alamat</span><span class="info-value">Kelurahan Gilireng</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="section-title"><i class="fas fa-user-check"></i> Pengawas</h2>
+                        <div class="member-card">
+                            <div class="status-pill status-aktif">Aktif</div>
+                            <!-- PERUBAHAN: Icon diganti Foto Nurdin -->
+                            <div class="member-avatar">
+                                <img src="nurdin.png" alt="Foto Nurdin">
+                            </div>
+                            <h4>Nurdin</h4>
+                            <span class="jabatan">Ketua Dewan Pengawas</span>
+                            <div class="member-info">
+                                <div class="info-row"><span class="info-label">NIK</span><span class="info-value">73************01</span></div>
+                                <div class="info-row"><span class="info-label">TTL</span><span class="info-value">Kajuara, 09-05-19**</span></div>
+                                <div class="info-row"><span class="info-label">Alamat</span><span class="info-value">Desa Paselloreng</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="org-level" style="margin-bottom: 0;">
+                <h2 class="section-title"><i class="fas fa-user-gear"></i> Pelaksana Operasional</h2>
+                <div class="members-grid">
+                    <div class="member-card">
+                        <div class="status-pill status-aktif">Aktif</div>
+                        <!-- PERUBAHAN: Icon diganti Foto Satria Nurhidayat -->
+                        <div class="member-avatar">
+                            <img src="satria.png" alt="Foto Satria Nurhidayat">
+                        </div>
+                        <h4>Satria Nurhidayat</h4>
+                        <span class="jabatan">Direktur</span>
+                        <div class="member-info">
+                            <div class="info-row"><span class="info-label">NIK</span><span class="info-value">73************02</span></div>
+                            <div class="info-row"><span class="info-label">TTL</span><span class="info-value">Caleko, 24-07-19**</span></div>
+                            <div class="info-row"><span class="info-label">Alamat</span><span class="info-value">Desa Paselloreng</span></div>
+                        </div>
+                    </div>
+                    <div class="member-card">
+                        <div class="status-pill status-aktif">Aktif</div>
+                        <!-- PERUBAHAN: Icon diganti Foto Astuti Darapuspita -->
+                        <div class="member-avatar">
+                            <img src="astuti.png" alt="Foto Astuti Darapuspita">
+                        </div>
+                        <h4>Astuti Darapuspita</h4>
+                        <span class="jabatan">Sekretaris</span>
+                        <div class="member-info">
+                            <div class="info-row"><span class="info-label">NIK</span><span class="info-value">73************01</span></div>
+                            <div class="info-row"><span class="info-label">TTL</span><span class="info-value">Paselloreng, 10-02-19**</span></div>
+                            <div class="info-row"><span class="info-label">Alamat</span><span class="info-value">Desa Paselloreng</span></div>
+                        </div>
+                    </div>
+                    <div class="member-card">
+                        <div class="status-pill status-aktif">Aktif</div>
+                        <!-- PERUBAHAN: Icon diganti Foto Huri Damayanti -->
+                        <div class="member-avatar">
+                            <img src="huri.png" alt="Foto Huri Damayanti">
+                        </div>
+                        <h4>Huri Damayanti</h4>
+                        <span class="jabatan">Bendahara</span>
+                        <div class="member-info">
+                            <div class="info-row"><span class="info-label">NIK</span><span class="info-value">64************01</span></div>
+                            <div class="info-row"><span class="info-label">TTL</span><span class="info-value">Paselloreng, 08-10-19**</span></div>
+                            <div class="info-row"><span class="info-label">Alamat</span><span class="info-value">Desa Paselloreng</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 60px; border-top: 1px dashed #ccc; padding-top: 30px;">
+                <a href="view-sk.html"  class="btn-sk">
+                    <i class="fas fa-eye"></i> LIHAT SK PENGURUS LENGKAP
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 BUMDesa Mappakengka Buana Paselloreng. <br> Desa Paselloreng, Kec. Gilireng, Kab. Wajo.</p>
+    </footer>
+
+    <script>
+        function toggleMenu(event) {
+            event.stopPropagation();
+            document.getElementById("nav-list").classList.toggle("show");
+        }
+
+        window.onclick = function(event) {
+            const navList = document.getElementById("nav-list");
+            if (!event.target.closest('nav') && navList.classList.contains('show')) {
+                navList.classList.remove('show');
+            }
+        }
+
+        const navWrapper = document.getElementById('navWrapper');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 40) {
+                navWrapper.classList.add('nav-scrolled');
+            } else {
+                navWrapper.classList.remove('nav-scrolled');
+            }
+        });
+
+        window.addEventListener('load', () => { 
+            document.body.style.opacity = '1'; 
+        });
+    </script>
+</body>
+</html>

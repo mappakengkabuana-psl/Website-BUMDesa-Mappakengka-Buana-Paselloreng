@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendirian - BUMDesa Mappakengka Buana Paselloreng</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        :root {
+            --primary-green: #0b2e26;
+            --eco-medium: #1e5128;
+            --eco-light: #4e944f;
+            --accent-lime: #b4ff9f;
+            --glass-bg: rgba(255, 255, 255, 0.8); 
+            --glass-border: rgba(255, 255, 255, 0.9);
+            --text-main: #0b2e26;
+        }
+
+        /* --- STYLES LOADER --- */
+        #loader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #f4fcf4;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.6s ease, visibility 0.6s;
+        }
+        .loader-icon {
+            width: 80px;
+            height: 80px;
+            border: 4px solid rgba(78, 148, 79, 0.2);
+            border-left-color: var(--eco-light);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            position: relative;
+        }
+        .loader-icon i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--eco-light);
+            font-size: 1.5rem;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+        .loader-text {
+            margin-top: 20px;
+            font-weight: 700;
+            color: var(--primary-green);
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+        /* -------------------- */
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Sora', sans-serif; }
+
+        body {
+            background: 
+                linear-gradient(rgba(244, 252, 244, 0.85), rgba(244, 252, 244, 0.85)),
+                url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: var(--text-main);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .bg-blobs { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -2; overflow: hidden; }
+        .blob { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.15; animation: float 25s infinite alternate ease-in-out; }
+        .blob-1 { width: 600px; height: 600px; background: var(--eco-light); top: -15%; left: -10%; }
+        .blob-2 { width: 500px; height: 500px; background: var(--accent-lime); bottom: 5%; right: -10%; }
+
+        @keyframes float { 0% { transform: translate(0, 0) rotate(0deg); } 100% { transform: translate(60px, 100px) rotate(10deg); } }
+
+        .nav-wrapper { 
+            position: fixed; 
+            top: 0; 
+            left: 0;
+            width: 100%; 
+            z-index: 9999; 
+            padding: 20px; 
+            display: flex; 
+            justify-content: center;
+            transition: all 0.4s ease;
+            pointer-events: none;
+        }
+        
+        nav { 
+            pointer-events: auto; 
+            max-width: 1100px; 
+            width: auto;
+            background: rgba(255, 255, 255, 0.6); 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
+            border: 1px solid var(--glass-border); 
+            border-radius: 15px;
+            padding: 8px; 
+            box-shadow: 0 5px 20px rgba(11, 46, 38, 0.1); 
+            transition: all 0.3s ease;
+        }
+
+        .nav-scrolled { padding: 10px 20px; }
+        .nav-scrolled nav { 
+            background: rgba(255, 255, 255, 0.95); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        nav ul { display: flex; list-style: none; gap: 2px; }
+        nav ul li a {
+            text-decoration: none; color: var(--primary-green);
+            font-weight: 600; font-size: 0.75rem; padding: 12px 18px;
+            border-radius: 10px; transition: 0.3s;
+            display: flex; align-items: center; gap: 8px;
+            white-space: nowrap; letter-spacing: 0.5px;
+        }
+        nav ul li a:hover { background: rgba(11, 46, 38, 0.1); }
+        nav ul li a.active { background: var(--primary-green); color: #fff; box-shadow: 0 4px 12px rgba(11, 46, 38, 0.2); }
+
+        .hamburger-menu { display: none; cursor: pointer; padding: 10px; }
+        .hamburger-lines { width: 22px; height: 16px; display: flex; flex-direction: column; justify-content: space-between; }
+        .line { height: 3px; width: 100%; background: var(--primary-green); border-radius: 100px; }
+
+        .content-area { flex: 1 0 auto; max-width: 1000px; margin: 140px auto 60px; padding: 0 20px; width: 100%; position: relative; z-index: 1; }
+        
+        .header-title { text-align: center; padding-bottom: 50px; }
+        .header-title h1 { 
+            font-size: 3.2rem; color: var(--primary-green); font-weight: 800; 
+            margin-bottom: 12px; letter-spacing: -1.5px; line-height: 1.1;
+        }
+        .header-title h1 span { color: var(--eco-light); }
+
+        .section-card {
+            background: var(--glass-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border); border-radius: 24px;
+            padding: 45px; margin-bottom: 35px; 
+            box-shadow: 0 10px 40px rgba(11, 46, 38, 0.06);
+            transition: all 0.4s ease;
+            position: relative; overflow: hidden;
+        }
+        .section-card:hover { transform: translateY(-5px); box-shadow: 0 15px 45px rgba(11, 46, 38, 0.1); }
+        .section-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+            background: linear-gradient(90deg, var(--eco-light), var(--accent-lime));
+        }
+
+        .section-title { 
+            color: var(--primary-green); margin-bottom: 30px; display: flex; 
+            align-items: center; gap: 15px; font-size: 1.7rem; font-weight: 700; 
+        }
+        .section-title i { color: var(--eco-light); }
+
+        .timeline { border-left: 3px dashed var(--accent-lime); padding-left: 30px; margin-left: 10px; }
+        .timeline-item { position: relative; margin-bottom: 30px; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -38px; top: 5px;
+            width: 14px; height: 14px; background: var(--eco-light);
+            border-radius: 50%; border: 3px solid #fff;
+        }
+
+        .legal-list li {
+            padding: 16px 22px; background: rgba(255,255,255,0.6); margin-bottom: 12px; 
+            border-radius: 14px; display: flex; align-items: center; gap: 15px; 
+            border: 1px solid rgba(255,255,255,0.9); font-weight: 600; font-size: 0.95rem;
+            transition: 0.3s;
+        }
+        .legal-list li:hover { background: #fff; transform: translateX(8px); border-color: var(--eco-light); }
+
+        .archive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .archive-item {
+            background: rgba(255, 255, 255, 0.6); padding: 20px; border-radius: 18px;
+            display: flex; align-items: center; gap: 18px; text-decoration: none; color: var(--primary-green);
+            transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.9);
+        }
+        .archive-item:hover { background: #fff; transform: scale(1.03); box-shadow: 0 10px 25px rgba(11, 46, 38, 0.1); }
+        
+        .archive-icon { 
+            width: 50px; height: 50px; background: #fff; border-radius: 12px; 
+            display: flex; align-items: center; justify-content: center; 
+            color: var(--eco-light); font-size: 1.3rem; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+        .archive-item:hover .archive-icon { background: var(--primary-green); color: var(--accent-lime); }
+
+        footer { text-align: center; padding: 40px; font-size: 0.8rem; color: var(--primary-green); font-weight: 600; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(5px); }
+
+        @media (max-width: 768px) {
+            .nav-wrapper { justify-content: flex-end; padding: 15px; }
+            nav { border-radius: 12px; }
+            .hamburger-menu { display: block; }
+            nav ul {
+                display: none; flex-direction: column; position: absolute;
+                top: 70px; right: 20px; width: 260px; background: white;
+                padding: 15px; border-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+                z-index: 10000;
+            }
+            nav ul.show { display: flex; animation: fadeInDown 0.3s ease forwards; }
+            .header-title h1 { font-size: 2.3rem; }
+            .section-card { padding: 30px 20px; }
+        }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body> 
+    <!-- ELEMEN LOADER -->
+    <div id="loader">
+        <div class="loader-icon">
+            <i class="fas fa-leaf"></i>
+        </div>
+        <p class="loader-text">Memuat Data...</p>
+    </div>
+
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="nav-wrapper" id="navWrapper">
+        <nav id="navbar">
+            <div class="hamburger-menu" onclick="toggleMenu(event)">
+                <div class="hamburger-lines">
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
+                </div>
+            </div>
+            <ul id="nav-list">
+                <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
+                <li><a href="pendirian.html" class="active"><i class="fas fa-file-alt"></i> PENDIRIAN</a></li>
+                <li><a href="unit-usaha.html"><i class="fas fa-store"></i> UNIT USAHA</a></li>
+                <li><a href="pengurus.html"><i class="fas fa-users"></i> PENGURUS</a></li>
+                <li><a href="transparansi.html"><i class="fas fa-chart-line"></i> INFORMASI</a></li>
+                <li><a href="hubungi.html"><i class="fas fa-envelope"></i> HUBUNGI</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="content-area">
+        <header class="header-title animate__animated animate__fadeIn">
+            <h1>Legalitas & <span>Pendirian</span></h1>
+            <p style="color: var(--eco-medium); font-weight: 700; text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; margin-top: 10px;">Transparansi Landasan Hukum BUMDesa</p>
+        </header>
+
+        <section class="section-card animate__animated animate__fadeInUp">
+            <h2 class="section-title"><i class="fas fa-history"></i> Garis Waktu Pendirian</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4 style="color: var(--eco-medium);">Tahun 2016</h4>
+                    <p style="font-size: 0.9rem; line-height: 1.6;">Pembentukan awal BUMDesa berdasarkan <strong>Peraturan Desa (Perdes) Nomor 06 Tahun 2016</strong>.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4 style="color: var(--eco-medium);">Tahun 2023</h4>
+                    <p style="font-size: 0.9rem; line-height: 1.6;">Pembaruan regulasi melalui <strong>Perdes Nomor 03 Tahun 2023</strong> menyesuaikan dengan PP 11/2021.</p>
+                </div>
+                <div class="timeline-item" style="margin-bottom: 0;">
+                    <h4 style="color: var(--eco-medium);">Tahun 2024</h4>
+                    <p style="font-size: 0.9rem; line-height: 1.6;">Resmi berbadan hukum Kemenkumham: <br><strong style="background: var(--accent-lime); padding: 2px 8px; border-radius: 5px;">AHU-00343.AH.01.33.TAHUN 2024</strong></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-card animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+            <h2 class="section-title"><i class="fas fa-gavel"></i> Dasar Hukum Utama</h2>
+            <ul class="legal-list" style="list-style: none;">
+                <li><i class="fas fa-balance-scale"></i> UU No. 6 Tahun 2014 tentang Desa</li>
+                <li><i class="fas fa-balance-scale"></i> PP No. 11 Tahun 2021 tentang BUMDesa</li>
+                <li><i class="fas fa-balance-scale"></i> Permendesa No. 3 Tahun 2021</li>
+                <li><i class="fas fa-balance-scale"></i> Perdes Paselloreng No. 03 Tahun 2023</li>
+            </ul>
+        </section>
+
+        <section class="section-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+            <h2 class="section-title"><i class="fas fa-folder-open"></i> Dokumen Publik</h2>
+            <div class="archive-grid">
+                <a href="view-perdes.html"  class="archive-item">
+                    <div class="archive-icon"><i class="fas fa-file-contract"></i></div>
+                    <div class="archive-text"><h4>Perdes Pendirian</h4><p>Lihat Dokumen PDF</p></div>
+                </a>
+                <a href="view-ba.html"  class="archive-item">
+                    <div class="archive-icon"><i class="fas fa-file-signature"></i></div>
+                    <div class="archive-text"><h4>Berita Acara</h4><p>Lihat Dokumen PDF</p></div>
+                </a>
+                <a href="view-adart.html"  class="archive-item">
+                    <div class="archive-icon"><i class="fas fa-landmark"></i></div>
+                    <div class="archive-text"><h4>AD / ART</h4><p>Lihat Dokumen PDF</p></div>
+                </a>
+                <a href="view-akta.html"  class="archive-item">
+                    <div class="archive-icon"><i class="fas fa-stamp"></i></div>
+                    <div class="archive-text"><h4>Akta Notaris</h4><p>Lihat Dokumen PDF</p></div>
+                </a>
+                <a href="view-ahu.html"  class="archive-item">
+                    <div class="archive-icon"><i class="fas fa-certificate"></i></div>
+                    <div class="archive-text"><h4>Sertifikat AHU</h4><p>Kemenkumham RI</p></div>
+                </a>
+                <a href="view-npwp.html"  class="archive-item">
+                    <div class="archive-icon"><i class="fas fa-id-card"></i></div>
+                    <div class="archive-text"><h4>NPWP</h4><p>Lihat Dokumen PDF</p></div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 BUMDesa Mappakengka Buana Paselloreng. <br> Desa Paselloreng, Kec. Gilireng, Kab. Wajo.</p>
+    </footer>
+
+    <script>
+        function toggleMenu(event) {
+            event.stopPropagation();
+            document.getElementById("nav-list").classList.toggle("show");
+        }
+        window.onclick = function(event) {
+            const navList = document.getElementById("nav-list");
+            if (!event.target.closest('nav') && navList.classList.contains('show')) {
+                navList.classList.remove('show');
+            }
+        }
+        const navWrapper = document.getElementById('navWrapper');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 40) {
+                navWrapper.classList.add('nav-scrolled');
+            } else {
+                navWrapper.classList.remove('nav-scrolled');
+            }
+        });
+
+        // MODIFIKASI JAVASCRIPT UNTUK LOADER
+        window.addEventListener('load', () => { 
+            const loader = document.getElementById('loader');
+            loader.style.opacity = '0';
+            loader.style.visibility = 'hidden';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1'; 
+            }, 100);
+        });
+    </script>
+</body>
+</html>
