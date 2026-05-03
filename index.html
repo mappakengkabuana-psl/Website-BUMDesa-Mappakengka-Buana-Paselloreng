@@ -15,31 +15,64 @@
             --eco-medium: #1e5128;
             --eco-light: #4e944f;
             --accent-lime: #b4ff9f;
-            --glass-bg: rgba(255, 255, 255, 0.7); 
-            --glass-border: rgba(255, 255, 255, 0.8);
-            --text-main: #0b2e26;
+            --glass-bg: rgba(255, 255, 255, 0.95); 
+            --glass-border: rgba(0, 0, 0, 0.05);
+            --text-main: #2d3436; /* Warna teks lebih lembut daripada hitam pekat */
+            --bg-light: #f8f9fa; /* Background netral */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Sora', sans-serif; }
 
         body {
-            /* PERBAIKAN: Mengubah background hijau menjadi putih abu-abu netral */
-            background-color: #f8f9fa; 
+            background-color: var(--bg-light); 
             color: var(--text-main);
             overflow-x: hidden;
             opacity: 0;
             transition: opacity 0.8s ease-in-out;
         }
 
-        /* --- NAVIGATION STABIL --- */
-        .nav-wrapper { position: fixed; top: 0; left: 0; width: 100%; z-index: 9999; padding: 20px; display: flex; justify-content: center; transition: all 0.4s ease; pointer-events: none; }
-        nav { pointer-events: auto; max-width: 1100px; width: auto; background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 15px; padding: 8px; box-shadow: 0 5px 20px rgba(11, 46, 38, 0.05); }
+        .nav-wrapper { 
+            position: fixed; 
+            top: 0; 
+            left: 0;
+            width: 100%; 
+            z-index: 9999; 
+            padding: 20px; 
+            display: flex; 
+            justify-content: center;
+            transition: all 0.4s ease;
+            pointer-events: none;
+        }
+        
+        nav { 
+            pointer-events: auto; 
+            max-width: 1100px; 
+            width: auto;
+            background: rgba(255, 255, 255, 0.6); 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
+            border: 1px solid var(--glass-border); 
+            border-radius: 15px;
+            padding: 8px; 
+            box-shadow: 0 5px 20px rgba(11, 46, 38, 0.1); 
+            transition: all 0.3s ease;
+        }
+
         .nav-scrolled { padding: 10px 20px; }
-        .nav-scrolled nav { background: rgba(255, 255, 255, 0.95); }
+        .nav-scrolled nav { 
+            background: rgba(255, 255, 255, 0.95); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
         nav ul { display: flex; list-style: none; gap: 2px; }
-        nav ul li a { text-decoration: none; color: var(--primary-green); font-weight: 600; font-size: 0.75rem; padding: 12px 18px; border-radius: 10px; transition: 0.3s; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+        nav ul li a {
+            text-decoration: none; color: var(--primary-green);
+            font-weight: 600; font-size: 0.75rem; padding: 12px 18px;
+            border-radius: 10px; transition: 0.3s;
+            display: flex; align-items: center; gap: 8px;
+            white-space: nowrap; letter-spacing: 0.5px;
+        }
         nav ul li a:hover { background: rgba(11, 46, 38, 0.1); }
-        nav ul li a.active { background: var(--primary-green); color: #fff; }
+        nav ul li a.active { background: var(--primary-green); color: #fff; box-shadow: 0 4px 12px rgba(11, 46, 38, 0.2); }
 
         .hamburger-menu { display: none; cursor: pointer; padding: 10px; }
         .hamburger-lines { width: 22px; height: 16px; display: flex; flex-direction: column; justify-content: space-between; }
@@ -52,7 +85,8 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: linear-gradient(rgba(11, 46, 38, 0.7), rgba(11, 46, 38, 0.7)), 
+            /* Overlay diganti ke hitam-abu agar tidak terlalu hijau */
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(11, 46, 38, 0.6)), 
                         url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80');
             background-size: cover;
             background-position: center;
@@ -60,9 +94,9 @@
             padding: 0 20px;
         }
 
-        .hero-content h1 { font-size: 4rem; font-weight: 800; letter-spacing: -2px; line-height: 1; margin-bottom: 20px; }
+        .hero-content h1 { font-size: 4rem; font-weight: 800; letter-spacing: -2px; line-height: 1.1; margin-bottom: 20px; }
         .hero-content h1 span { color: var(--accent-lime); }
-        .hero-content p { font-size: 1.2rem; opacity: 0.9; max-width: 700px; margin: 0 auto 35px; line-height: 1.6; }
+        .hero-content p { font-size: 1.1rem; opacity: 0.95; max-width: 700px; margin: 0 auto 35px; line-height: 1.6; }
 
         .cta-buttons { display: flex; gap: 15px; justify-content: center; }
         .btn { padding: 16px 32px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: 0.3s; }
@@ -88,47 +122,47 @@
             padding: 30px;
             border-radius: 24px;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.08); /* Shadow sedikit lebih tegas */
-            border: 1px solid #f0f0f0;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.06); 
+            border: 1px solid rgba(0,0,0,0.03);
         }
         .stat-card i { font-size: 2rem; color: var(--eco-light); margin-bottom: 15px; }
         .stat-card h3 { font-size: 1.8rem; font-weight: 800; color: var(--primary-green); }
-        .stat-card p { font-size: 0.75rem; color: #777; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+        .stat-card p { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
 
         .stat-card.visitor-counter {
-            border: 1px solid var(--accent-lime);
-            background: linear-gradient(to bottom, #ffffff, #fff); /* Menetralkan background card */
+            border-bottom: 4px solid var(--accent-lime);
         }
 
         /* --- FEATURES SECTION --- */
         .features { padding: 100px 20px; max-width: 1100px; margin: 0 auto; }
         .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-size: 2.5rem; color: var(--primary-green); }
+        .section-header h2 { font-size: 2.5rem; color: var(--primary-green); margin-bottom: 15px; }
         
         .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .feature-box {
-            padding: 40px;
-            background: #ffffff; /* Mengubah dari glass-bg transparan ke putih solid agar bersih */
+            padding: 45px;
+            background: #ffffff; 
             border-radius: 24px;
-            border: 1px solid #eee;
-            transition: 0.3s;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.02);
+            border: 1px solid #f0f0f0;
+            transition: 0.4s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
         }
-        .feature-box:hover { transform: translateY(-10px); background: white; border-color: var(--eco-light); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .feature-box i { font-size: 2.5rem; color: var(--eco-light); margin-bottom: 20px; }
-        .feature-box h4 { margin-bottom: 15px; font-size: 1.2rem; color: var(--primary-green); }
-        .feature-box p { font-size: 0.9rem; color: #555; line-height: 1.7; }
+        .feature-box:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); border-color: var(--accent-lime); }
+        .feature-box i { font-size: 2.5rem; color: var(--eco-light); margin-bottom: 25px; display: block; }
+        .feature-box h4 { margin-bottom: 15px; font-size: 1.25rem; color: var(--primary-green); }
+        .feature-box p { font-size: 0.95rem; color: #636e72; line-height: 1.8; }
 
-        footer { background: var(--primary-green); color: white; padding: 60px 20px; text-align: center; }
-        .footer-logo { font-size: 1.5rem; font-weight: 800; margin-bottom: 10px; color: var(--accent-lime); }
+        footer { background: var(--primary-green); color: white; padding: 80px 20px 40px; text-align: center; }
+        .footer-logo { font-size: 1.5rem; font-weight: 800; margin-bottom: 15px; color: var(--accent-lime); }
 
         @media (max-width: 768px) {
-            .hero-content h1 { font-size: 2.5rem; }
+            .hero-content h1 { font-size: 2.8rem; }
             .nav-wrapper { justify-content: flex-end; padding: 15px; }
             .hamburger-menu { display: block; }
             nav ul { display: none; flex-direction: column; position: absolute; top: 70px; right: 20px; width: 260px; background: white; padding: 15px; border-radius: 15px; box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
             nav ul.show { display: flex; animation: fadeInDown 0.3s ease forwards; }
             .cta-buttons { flex-direction: column; }
+            .stats-container { margin-top: -50px; }
         }
         @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
@@ -153,12 +187,12 @@
 
     <section class="hero">
         <div class="hero-content animate__animated animate__fadeIn">
-            <p style="text-transform: uppercase; letter-spacing: 4px; font-weight: 700; color: var(--accent-lime);">BADAN USAHA MILIK DESA</p>
+            <p style="text-transform: uppercase; letter-spacing: 4px; font-weight: 700; color: var(--accent-lime); margin-bottom: 15px;">BADAN USAHA MILIK DESA</p>
             <h1>MAPPAKENGKA BUANA <br><span>PASELLORENG</span></h1>
             <p>Membangun kemandirian ekonomi desa melalui tata kelola usaha yang profesional, transparan, dan berkelanjutan.</p>
             <div class="cta-buttons">
                 <a href="unit-usaha.html" class="btn btn-primary">JELAJAHI UNIT USAHA</a>
-                <a href="transparansi.html" class="btn btn-outline">LIHAT TRANSPARANSI</a>
+                <a href="transparansi.html" class="btn btn-primary">LIHAT TRANSPARANSI</a>
             </div>
         </div>
     </section>
@@ -189,32 +223,32 @@
     <section class="features">
         <div class="section-header animate__animated animate__fadeIn">
             <h2>Pilar Keunggulan Kami</h2>
-            <p style="color: #666; margin-top: 10px;">Mengapa BUMDesa Mappakengka menjadi penggerak utama desa?</p>
+            <p style="color: #636e72; margin-top: 10px; max-width: 600px; margin-left: auto; margin-right: auto;">Mengapa BUMDesa Mappakengka menjadi penggerak utama ekonomi Desa Paselloreng?</p>
         </div>
         
         <div class="feature-grid">
             <div class="feature-box animate__animated animate__fadeInUp">
                 <i class="fas fa-seedling"></i>
                 <h4>Ekonomi Berkelanjutan</h4>
-                <p>Setiap keuntungan dikelola kembali untuk memperkuat modal usaha dan memberikan kontribusi nyata pada PAD desa.</p>
+                <p>Setiap keuntungan dikelola kembali untuk memperkuat modal usaha dan memberikan kontribusi nyata pada Pendapatan Asli Desa.</p>
             </div>
             <div class="feature-box animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
                 <i class="fas fa-shield-alt"></i>
                 <h4>Transparansi Total</h4>
-                <p>Kami menyajikan laporan keuangan yang dapat diakses oleh seluruh masyarakat sebagai bentuk akuntabilitas publik.</p>
+                <p>Kami menyajikan laporan keuangan yang dapat diakses oleh seluruh masyarakat sebagai bentuk akuntabilitas publik yang nyata.</p>
             </div>
             <div class="feature-box animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
                 <i class="fas fa-handshake"></i>
                 <h4>Pemberdayaan Lokal</h4>
-                <p>Mengutamakan potensi SDM dan sumber daya alam lokal untuk menciptakan lapangan kerja baru di desa.</p>
+                <p>Mengutamakan potensi sumber daya manusia dan alam lokal untuk menciptakan ekosistem ekonomi desa yang mandiri.</p>
             </div>
         </div>
     </section>
 
     <footer>
         <div class="footer-logo">BUMDesa Mappakengka Buana Paselloreng</div>
-        <p style="opacity: 0.7; font-size: 0.85rem; max-width: 500px; margin: 10px auto 30px;">Mewujudkan Desa Paselloreng yang berdaya saing melalui inovasi bisnis desa yang inklusif.</p>
-        <div style="font-size: 0.75rem; opacity: 0.5;">
+        <p style="opacity: 0.8; font-size: 0.9rem; max-width: 500px; margin: 10px auto 30px; line-height: 1.6;">Mewujudkan Desa Paselloreng yang berdaya saing melalui inovasi bisnis desa yang inklusif dan modern.</p>
+        <div style="font-size: 0.75rem; opacity: 0.6; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px;">
             &copy; 2026 BUMDesa Mappakengka Buana Paselloreng. <br>
             Kecamatan Gilireng, Kabupaten Wajo, Sulawesi Selatan.
         </div>
