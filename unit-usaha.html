@@ -23,14 +23,12 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Sora', sans-serif; }
 
         body {
-            /* PERUBAHAN: Background disamakan dengan halaman Pendirian (Pemandangan Sawah) */
             background: 
                 linear-gradient(rgba(244, 252, 244, 0.85), rgba(244, 252, 244, 0.85)),
                 url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            /* -------------------------------------------------------------------------- */
             min-height: 100vh;
             color: var(--text-main);
             overflow-x: hidden;
@@ -40,7 +38,6 @@
             transition: opacity 0.8s ease-in-out;
         }
 
-        /* Blobs disesuaikan agar lembut seperti di halaman Pendirian */
         .bg-blobs { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -2; overflow: hidden; }
         .blob { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.15; animation: float 25s infinite alternate ease-in-out; }
         .blob-1 { width: 600px; height: 600px; background: var(--eco-light); top: -15%; left: -10%; }
@@ -48,7 +45,6 @@
 
         @keyframes float { 0% { transform: translate(0, 0) rotate(0deg); } 100% { transform: translate(60px, 100px) rotate(10deg); } }
 
-        /* --- FIXED NAVIGATION STABIL --- */
         .nav-wrapper { 
             position: fixed; 
             top: 0; 
@@ -96,7 +92,6 @@
         .hamburger-lines { width: 22px; height: 16px; display: flex; flex-direction: column; justify-content: space-between; }
         .line { height: 3px; width: 100%; background: var(--primary-green); border-radius: 100px; }
 
-        /* --- CONTENT AREA --- */
         .content-area { flex: 1 0 auto; max-width: 1000px; margin: 140px auto 60px; padding: 0 20px; width: 100%; position: relative; z-index: 1; }
         
         .header-title { text-align: center; padding-bottom: 50px; }
@@ -106,7 +101,6 @@
         }
         .header-title h1 span { color: var(--eco-light); }
 
-        /* Section Cards */
         .section-card {
             background: var(--glass-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             border: 1px solid var(--glass-border); border-radius: 24px;
@@ -127,15 +121,20 @@
         }
         .section-title i { color: var(--eco-light); }
 
-        /* Unit Grid */
         .unit-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
             gap: 25px; 
         }
 
+        /* PERUBAHAN: Menambahkan cursor pointer dan menghapus dekorasi link */
+        .unit-link {
+            text-decoration: none;
+            display: block;
+            color: inherit;
+        }
+
         .unit-item {
-            /* PERUBAHAN: Menyesuaikan transparansi item agar senada dengan nuansa baru */
             background: rgba(255, 255, 255, 0.6);
             border-radius: 20px;
             padding: 30px;
@@ -144,6 +143,8 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
+            height: 100%; /* Agar tinggi seragam */
+            cursor: pointer;
         }
         .unit-item:hover {
             background: #fff;
@@ -176,13 +177,10 @@
             align-self: flex-start;
         }
 
-        /* Footer disesuaikan agar senada dengan halaman Pendirian */
         footer { text-align: center; padding: 40px; font-size: 0.8rem; color: var(--primary-green); font-weight: 600; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(5px); }
 
-        /* Responsive Mobile */
         @media (max-width: 768px) {
             .nav-wrapper { justify-content: flex-end; padding: 15px; }
-            nav { border-radius: 12px; }
             .hamburger-menu { display: block; }
             nav ul {
                 display: none; flex-direction: column; position: absolute;
@@ -218,8 +216,8 @@
                 <li><a href="pendirian.html"><i class="fas fa-file-alt"></i> PENDIRIAN</a></li>
                 <li><a href="unit-usaha.html" class="active"><i class="fas fa-store"></i> UNIT USAHA</a></li>
                 <li><a href="pengurus.html"><i class="fas fa-users"></i> PENGURUS</a></li>
-                <li><a href="transparansi.html"><i class="fas fa-chart-line"></i> INFORMASI PUBLIK</a></li>
-                <li><a href="hubungi.html"><i class="fas fa-envelope"></i> HUBUNGI KAMI</a></li>
+                <li><a href="transparansi.html"><i class="fas fa-chart-line"></i> INFORMASI</a></li>
+                <li><a href="hubungi.html"><i class="fas fa-envelope"></i> HUBUNGI</a></li>
             </ul>
         </nav>
     </div>
@@ -234,40 +232,55 @@
             <h2 class="section-title"><i class="fas fa-briefcase"></i> Portofolio Usaha</h2>
             <div class="unit-grid">
                 
-                <div class="unit-item">
-                    <div class="status-badge">Aktif</div>
-                    <div class="unit-icon"><i class="fas fa-hand-holding-usd"></i></div>
-                    <h3>Simpan Pinjam</h3>
-                    <p>Memberikan solusi permodalan mikro bagi warga desa dan pelaku UMKM lokal dengan skema yang mudah dan kekeluargaan.</p>
-                </div>
+                <!-- Unit 1 -->
+                <a href="simpan-pinjam.html" class="unit-link">
+                    <div class="unit-item">
+                        <div class="status-badge">Aktif</div>
+                        <div class="unit-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                        <h3>Simpan Pinjam</h3>
+                        <p>Memberikan solusi permodalan mikro bagi warga desa dan pelaku UMKM lokal dengan skema yang mudah dan kekeluargaan.</p>
+                    </div>
+                </a>
 
-                <div class="unit-item">
-                    <div class="status-badge">Aktif</div>
-                    <div class="unit-icon"><i class="fas fa-shopping-cart"></i></div>
-                    <h3>Perdagangan</h3>
-                    <p>Penyediaan kebutuhan pokok, sarana produksi pertanian, dan distribusi barang konsumsi untuk menjaga stabilitas harga di desa.</p>
-                </div>
+                <!-- Unit 2 -->
+                <a href="perdagangan.html" class="unit-link">
+                    <div class="unit-item">
+                        <div class="status-badge">Aktif</div>
+                        <div class="unit-icon"><i class="fas fa-shopping-cart"></i></div>
+                        <h3>Perdagangan</h3>
+                        <p>Penyediaan kebutuhan pokok, sarana produksi pertanian, dan distribusi barang konsumsi untuk menjaga stabilitas harga di desa.</p>
+                    </div>
+                </a>
 
-                <div class="unit-item">
-                    <div class="status-badge">Aktif</div>
-                    <div class="unit-icon"><i class="fas fa-tools"></i></div>
-                    <h3>Penyewaan</h3>
-                    <p>Layanan sewa alat pesta, alat berat pertanian, dan gedung pertemuan desa untuk mendukung produktivitas dan kegiatan sosial warga.</p>
-                </div>
+                <!-- Unit 3 -->
+                <a href="penyewaan.html" class="unit-link">
+                    <div class="unit-item">
+                        <div class="status-badge">Aktif</div>
+                        <div class="unit-icon"><i class="fas fa-tools"></i></div>
+                        <h3>Penyewaan</h3>
+                        <p>Layanan sewa alat pesta, alat berat pertanian, dan gedung pertemuan desa untuk mendukung produktivitas dan kegiatan sosial warga.</p>
+                    </div>
+                </a>
 
-                <div class="unit-item">
-                    <div class="status-badge">Strategis</div>
-                    <div class="unit-icon"><i class="fas fa-seedling"></i></div>
-                    <h3>Ketahanan Pangan</h3>
-                    <p>Pengelolaan lumbung pangan desa, optimalisasi lahan pertanian, dan budidaya lokal untuk menjamin ketersediaan pangan mandiri.</p>
-                </div>
+                <!-- Unit 4 -->
+                <a href="ketahanan-pangan.html" class="unit-link">
+                    <div class="unit-item">
+                        <div class="status-badge">Strategis</div>
+                        <div class="unit-icon"><i class="fas fa-seedling"></i></div>
+                        <h3>Ketahanan Pangan</h3>
+                        <p>Pengelolaan lumbung pangan desa, optimalisasi lahan pertanian, dan budidaya lokal untuk menjamin ketersediaan pangan mandiri.</p>
+                    </div>
+                </a>
 
-                <div class="unit-item">
-                    <div class="status-badge">Pengembangan</div>
-                    <div class="unit-icon"><i class="fas fa-concierge-bell"></i></div>
-                    <h3>Layanan Lainnya</h3>
-                    <p>Unit jasa kreatif mencakup pembayaran digital (PPOB), kemitraan pihak ketiga, dan jasa kurir desa.</p>
-                </div>
+                <!-- Unit 5 -->
+                <a href="layanan-lain.html" class="unit-link">
+                    <div class="unit-item">
+                        <div class="status-badge">Pengembangan</div>
+                        <div class="unit-icon"><i class="fas fa-concierge-bell"></i></div>
+                        <h3>Layanan Lainnya</h3>
+                        <p>Unit jasa kreatif mencakup pembayaran digital (PPOB), kemitraan pihak ketiga, dan jasa kurir desa.</p>
+                    </div>
+                </a>
 
             </div>
         </section>
@@ -285,13 +298,11 @@
     </footer>
 
     <script>
-        // Toggle Mobile Menu
         function toggleMenu(event) {
             event.stopPropagation();
             document.getElementById("nav-list").classList.toggle("show");
         }
 
-        // Close menu when clicking outside
         window.onclick = function(event) {
             const navList = document.getElementById("nav-list");
             if (!event.target.closest('nav') && navList.classList.contains('show')) {
@@ -299,7 +310,6 @@
             }
         }
 
-        // Navbar Scroll Effect Stabil
         const navWrapper = document.getElementById('navWrapper');
         window.addEventListener('scroll', function() {
             if (window.scrollY > 40) {
@@ -309,7 +319,6 @@
             }
         });
 
-        // Page Load Fade In
         window.addEventListener('load', () => { 
             document.body.style.opacity = '1'; 
         });
