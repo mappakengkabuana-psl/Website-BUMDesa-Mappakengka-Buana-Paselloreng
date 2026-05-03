@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layanan Lain - BUMDesa Mappakengka</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        :root { --primary-green: #0b2e26; --eco-medium: #1e5128; --eco-light: #4e944f; --accent-lime: #b4ff9f; --glass-bg: rgba(255, 255, 255, 0.8); --glass-border: rgba(255, 255, 255, 0.9); --text-main: #0b2e26; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Sora', sans-serif; }
+        body { background: linear-gradient(rgba(244, 252, 244, 0.85), rgba(244, 252, 244, 0.85)), url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80'); background-size: cover; background-position: center; background-attachment: fixed; min-height: 100vh; color: var(--text-main); }
+        
+        /* Navbar */
+        .nav-wrapper { position: fixed; top: 0; left: 0; width: 100%; z-index: 9999; padding: 20px; display: flex; justify-content: center; pointer-events: none; }
+        nav { pointer-events: auto; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 15px; padding: 8px; box-shadow: 0 5px 20px rgba(11, 46, 38, 0.1); }
+        nav ul { display: flex; list-style: none; gap: 2px; }
+        nav ul li a { text-decoration: none; color: var(--primary-green); font-weight: 600; font-size: 0.75rem; padding: 12px 18px; border-radius: 10px; display: flex; align-items: center; gap: 8px; }
+        nav ul li a:hover, nav ul li a.active { background: var(--primary-green); color: #fff; }
+        
+        .content-area { max-width: 900px; margin: 120px auto 60px; padding: 0 20px; }
+        .header-title h1 { font-size: 2.2rem; color: var(--primary-green); font-weight: 800; text-align: center; margin-bottom: 40px;}
+        
+        .section-card { background: var(--glass-bg); backdrop-filter: blur(15px); border: 1px solid var(--glass-border); border-radius: 20px; padding: 25px; margin-bottom: 30px; }
+        .section-title { color: var(--primary-green); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; font-size: 1.2rem; font-weight: 700; border-left: 4px solid var(--eco-medium); padding-left: 15px;}
+        
+        /* Grid System */
+        .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
+        
+        /* Item Style */
+        .service-item { background: rgba(255,255,255,0.5); padding: 20px; border-radius: 15px; border: 1px solid var(--glass-border); text-align: center; transition: 0.3s; text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .service-item i { font-size: 2rem; margin-bottom: 12px; color: var(--eco-medium); }
+        .service-item h3 { font-size: 0.95rem; font-weight: 600; }
+
+        /* Online/Send File Category */
+        .online-group .service-item { border-bottom: 3px solid #25d366; }
+        .online-group .service-item:hover { transform: translateY(-5px); background: #fff; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.1); }
+        .online-label { font-size: 0.7rem; color: #25d366; font-weight: 700; margin-top: 8px; display: flex; align-items: center; gap: 4px; }
+
+        /* Offline Category */
+        .offline-group .service-item { opacity: 0.8; background: rgba(240, 240, 240, 0.5); cursor: default; }
+        .offline-label { font-size: 0.7rem; color: #666; font-weight: 600; margin-top: 8px; }
+        .btn:hover { background: var(--eco-light); }
+        .btn-laporan { display: block; background: var(--eco-medium); color: white; text-align: center; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: 700; margin-top: 20px; }
+        
+        footer { text-align: center; padding: 40px; font-size: 0.8rem; color: var(--primary-green); }
+    </style>
+</head>
+<body>
+    <div class="nav-wrapper">
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
+                <li><a href="unit-usaha.html" class="active"><i class="fas fa-store"></i> UNIT USAHA</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="content-area">
+        <header class="header-title animate__animated animate__fadeInDown">
+            <h1>Layanan Percetakan</h1>
+        </header>
+
+        <!-- KELOMPOK 1: BISA KIRIM FILE (ONLINE) -->
+        <section class="section-card online-group animate__animated animate__fadeInUp">
+            <h2 class="section-title"><i class="fab fa-whatsapp"></i> Layanan Via WhatsApp (Kirim File)</h2>
+            <div class="service-grid">
+                <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20Print%20Dokumen" class="service-item" target="_blank">
+                    <i class="fas fa-file-pdf"></i>
+                    <h3>Print Dokumen</h3>
+                    <span class="online-label"><i class="fas fa-paper-plane"></i> KIRIM FILE</span>
+                </a>
+                <a href="https://wa.me/6281234567890?text=Halo,%20saya%20butuh%20Jasa%20Pengetikan" class="service-item" target="_blank">
+                    <i class="fas fa-keyboard"></i>
+                    <h3>Jasa Pengetikan</h3>
+                    <span class="online-label"><i class="fas fa-paper-plane"></i> KIRIM TEKS</span>
+                </a>
+                <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20Cetak%20Foto" class="service-item" target="_blank">
+                    <i class="fas fa-image"></i>
+                    <h3>Cetak Foto</h3>
+                    <span class="online-label"><i class="fas fa-paper-plane"></i> KIRIM FOTO</span>
+                </a>
+                <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20Cetak%20ID%20Card" class="service-item" target="_blank">
+                    <i class="fas fa-id-card"></i>
+                    <h3>Cetak ID Card</h3>
+                    <span class="online-label"><i class="fas fa-paper-plane"></i> KIRIM DESAIN</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- KELOMPOK 2: LAYANAN DI TEMPAT (OFFLINE) -->
+        <section class="section-card offline-group animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+            <h2 class="section-title"><i class="fas fa-store"></i> Layanan Di Tempat</h2>
+            <div class="service-grid">
+                <div class="service-item">
+                    <i class="fas fa-copy"></i>
+                    <h3>Foto Copy</h3>
+                    <span class="offline-label">BAWA DOKUMEN</span>
+                </div>
+                <div class="service-item">
+                    <i class="fas fa-book"></i>
+                    <h3>Jilid Buku</h3>
+                    <span class="offline-label">PROSES DI TOKO</span>
+                </div>
+                <div class="service-item">
+                    <i class="fas fa-id-card-alt"></i>
+                    <h3>Laminating</h3>
+                    <span class="offline-label">PROSES DI TOKO</span>
+                </div>
+            </div>
+        </section>
+
+        <a href="laporan-layanan-lain.html" class="btn btn-laporan animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
+            <i class="fas fa-file-invoice-dollar"></i> Lihat Laporan Keuangan Terkini
+        </a>
+    </main>
+
+    <footer><p>&copy; 2026 BUMDesa Mappakengka Buana Paselloreng.</p></footer>
+</body>
+</html>
