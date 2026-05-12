@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Penyewaan - BUMDesa Mappakengka Buana Paselloreng</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        :root {
+            --primary-green: #0b2e26;
+            --eco-medium: #1e5128;
+            --eco-light: #4e944f;
+            --accent-lime: #b4ff9f;
+            --glass-bg: rgba(255, 255, 255, 0.8); 
+            --text-main: #0b2e26;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Sora', sans-serif; }
+
+        body {
+            background: 
+                linear-gradient(rgba(244, 252, 244, 0.9), rgba(244, 252, 244, 0.9)),
+                url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: var(--text-main);
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        /* Navbar Style (Consistent with Main Page) */
+        .nav-wrapper { position: fixed; top: 0; left: 0; width: 100%; z-index: 9999; padding: 20px; display: flex; justify-content: center; pointer-events: none; }
+        nav { pointer-events: auto; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 15px; padding: 8px; box-shadow: 0 5px 20px rgba(11, 46, 38, 0.1); }
+        nav ul { display: flex; list-style: none; gap: 2px; }
+        nav ul li a { text-decoration: none; color: var(--primary-green); font-weight: 600; font-size: 0.75rem; padding: 12px 18px; border-radius: 10px; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
+        nav ul li a:hover { background: rgba(11, 46, 38, 0.1); }
+        nav ul li a.active { background: var(--primary-green); color: #fff; }
+
+        .content-area { max-width: 1000px; margin: 120px auto 60px; padding: 0 20px; }
+
+        .header-title { text-align: center; margin-bottom: 40px; }
+        .header-title h1 { font-size: 2.5rem; color: var(--primary-green); }
+        .header-title span { color: var(--eco-light); }
+
+        .section-card {
+            background: var(--glass-bg); border-radius: 24px;
+            padding: 40px; margin-bottom: 30px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+        }
+
+        /* Inventory Table */
+        .inventory-table {
+            width: 100%; border-collapse: collapse; margin-top: 20px;
+            background: white; border-radius: 15px; overflow: hidden;
+        }
+        .inventory-table th { background: var(--primary-green); color: white; padding: 15px; text-align: left; }
+        .inventory-table td { padding: 15px; border-bottom: 1px solid #eee; }
+        
+        .color-badge {
+            display: inline-block; width: 15px; height: 15px; border-radius: 50%; vertical-align: middle; margin-right: 8px;
+        }
+
+        .procedure-list { margin-top: 20px; }
+        .procedure-item { display: flex; gap: 15px; margin-bottom: 20px; }
+        .step-num { 
+            background: var(--eco-light); color: white; width: 30px; height: 30px; 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold;
+        }
+
+        .price-tag { font-weight: 800; color: var(--eco-medium); font-size: 1.1rem; }
+
+        footer { text-align: center; padding: 40px; font-size: 0.8rem; color: var(--primary-green); font-weight: 600; background: rgba(255, 255, 255, 0.4); }
+
+        @media (max-width: 600px) {
+            .inventory-table { font-size: 0.85rem; }
+            .header-title h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav-wrapper">
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
+                <li><a href="unit-usaha.html" class="active"><i class="fas fa-store"></i> UNIT USAHA</a></li>
+                <li><a href="hubungi.html"><i class="fas fa-envelope"></i> HUBUNGI KAMI</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="content-area">
+        <header class="header-title animate__animated animate__fadeIn">
+            <h1>Unit <span>Penyewaan</span></h1>
+            <p>Mendukung Kelancaran Acara & Hajatan Warga</p>
+        </header>
+
+        <section class="section-card animate__animated animate__fadeInUp">
+            <h2 style="margin-bottom: 20px;"><i class="fas fa-chair" style="color: var(--eco-light);"></i> Daftar Inventaris Kursi</h2>
+            <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">*Stok tersedia per hari ini</p>
+            
+            <table class="inventory-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Warna</th>
+                        <th>Jumlah Total</th>
+                        <th>Tarif Sewa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Kursi Plastik Standar</b></td>
+                        <td><span class="color-badge" style="background: #e74c3c;"></span> Merah</td>
+                        <td>100 Buah</td>
+                        <td><span class="price-tag">Rp 3.500</span> /buah</td>
+                    </tr>
+                    <tr>
+                        <td><b>Kursi Plastik Standar</b></td>
+                        <td><span class="color-badge" style="background: #2ecc71;"></span> Hijau</td>
+                        <td>100 Buah</td>
+                        <td><span class="price-tag">Rp 3.500</span> /buah</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="margin-top: 15px; font-size: 0.85rem; font-style: italic;">Note: Harga sudah termasuk antar-jemput untuk wilayah Desa Paselloreng (Minimal sewa 50 buah).</p>
+        </section>
+
+        <section class="section-card animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+            <h2 style="margin-bottom: 25px;"><i class="fas fa-clipboard-list" style="color: var(--eco-light);"></i> Prosedur Penyewaan</h2>
+            
+            <div class="procedure-list">
+                <div class="procedure-item">
+                    <div class="step-num">1</div>
+                    <div>
+                        <p><b>Pengecekan Jadwal:</b> Hubungi admin untuk memastikan ketersediaan stok pada tanggal acara Anda.</p>
+                    </div>
+                </div>
+                <div class="procedure-item">
+                    <div class="step-num">2</div>
+                    <div>
+                        <p><b>Booking & DP:</b> Membayar uang muka (DP) sebesar 30% sebagai tanda jadi penjadwalan.</p>
+                    </div>
+                </div>
+                <div class="procedure-item">
+                    <div class="step-num">3</div>
+                    <div>
+                        <p><b>Pengiriman:</b> Barang akan diantar ke lokasi 1 hari sebelum acara atau sesuai kesepakatan.</p>
+                    </div>
+                </div>
+                <div class="procedure-item">
+                    <div class="step-num">4</div>
+                    <div>
+                        <p><b>Pelunasan & Pengembalian:</b> Pelunasan dilakukan saat barang diambil kembali setelah acara selesai.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s; background: var(--primary-green); color: white;">
+            <h2 style="margin-bottom: 15px; color: var(--accent-lime);"><i class="fas fa-exclamation-circle"></i> Ketentuan Kerusakan</h2>
+            <p style="font-size: 0.95rem; line-height: 1.6;">
+                Penyewa bertanggung jawab penuh atas keutuhan barang. Apabila terdapat kursi yang <b>patah atau hilang</b>, penyewa wajib mengganti sesuai dengan harga pengadaan barang atau menggantinya dengan barang bermerk sama.
+            </p>
+            <div style="margin-top: 25px;">
+                <a href="https://wa.me/6285314101659" style="background: var(--accent-lime); color: var(--primary-green); padding: 12px 25px; border-radius: 10px; text-decoration: none; font-weight: 700; display: inline-block;">
+                    <i class="fab fa-whatsapp"></i> SEWA SEKARANG
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 BUMDesa Mappakengka Buana Paselloreng. <br> Desa Paselloreng, Kec. Gilireng, Kab. Wajo.</p>
+    </footer>
+
+    <script>
+        window.addEventListener('load', () => { 
+            document.body.style.opacity = '1'; 
+        });
+    </script>
+</body>
+</html>
