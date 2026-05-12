@@ -30,7 +30,7 @@
             display: flex; flex-direction: column; opacity: 0; transition: opacity 0.8s ease-in-out;
         }
 
-        /* Reusing Navigation Styles from previous page */
+        /* Navigation Styles */
         .nav-wrapper { position: fixed; top: 0; left: 0; width: 100%; z-index: 9999; padding: 20px; display: flex; justify-content: center; transition: all 0.4s ease; pointer-events: none; }
         nav { pointer-events: auto; max-width: 1100px; width: auto; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 15px; padding: 8px; box-shadow: 0 5px 20px rgba(11, 46, 38, 0.1); }
         nav ul { display: flex; list-style: none; gap: 2px; }
@@ -59,22 +59,62 @@
         }
         .info-box h4 { margin-bottom: 10px; color: var(--primary-green); display: flex; align-items: center; gap: 10px; }
 
-        /* Syarat Table/List */
         .syarat-list { list-style: none; }
         .syarat-list li { padding: 12px 0; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 12px; font-size: 0.95rem; }
         .syarat-list li i { color: var(--eco-light); font-size: 1.1rem; }
 
-        /* Documentation Gallery */
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
-        .gallery-item { height: 150px; border-radius: 15px; background: #ddd; overflow: hidden; position: relative; cursor: pointer; }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .gallery-item:hover img { transform: scale(1.1); }
+        /* --- PERUBAHAN GALLERY: PORTRAIT & AUTO SLIDE --- */
+        .gallery-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            padding: 10px 0;
+        }
+
+        .gallery-track {
+            display: flex;
+            gap: 15px;
+            width: max-content;
+            animation: scroll 25s linear infinite;
+        }
+
+        .gallery-track:hover {
+            animation-play-state: paused; /* Berhenti saat di-hover mouse */
+        }
+
+        .gallery-item {
+            width: calc((1100px - 125px) / 4); /* Menghitung agar 4 foto muat di layar desktop */
+            min-width: 200px;
+            aspect-ratio: 3 / 4; /* Membuat format Portrait */
+            border-radius: 15px;
+            background: #ddd;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } /* Geser setengah dari total track */
+        }
 
         footer { text-align: center; padding: 40px; font-size: 0.8rem; color: var(--primary-green); font-weight: 600; background: rgba(255, 255, 255, 0.4); }
 
         @media (max-width: 768px) {
             .header-title h1 { font-size: 2.2rem; }
             .section-card { padding: 25px; }
+            .gallery-item { width: 160px; } /* Ukuran lebih kecil di HP */
         }
     </style>
 </head>
@@ -144,30 +184,27 @@
         <section class="section-card animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
             <h2 style="margin-bottom: 20px;"><i class="fas fa-camera"></i> Dokumentasi Kegiatan</h2>
             <p style="font-size: 0.9rem; margin-bottom: 20px;">Transparansi adalah prioritas kami. Berikut adalah kegiatan penyaluran dan monitoring usaha anggota.</p>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1554224155-169641357599?auto=format&fit=crop&q=80" alt="Dokumentasi Kegiatan">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1556742049-023b9fbf50ff?auto=format&fit=crop&q=80" alt="Dokumentasi Kegiatan">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e787?auto=format&fit=crop&q=80" alt="Dokumentasi Kegiatan">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e787?auto=format&fit=crop&q=80" alt="Dokumentasi Kegiatan">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e787?auto=format&fit=crop&q=80" alt="Dokumentasi Kegiatan">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e787?auto=format&fit=crop&q=80" alt="Dokumentasi Kegiatan">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e787?auto=format&fit=crop&q=80" alt="Dokumentasi Kegiatan">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e787?auto=format&fit=crop&q=80" alt="Dokumentasi Kegiatan">
+            
+            <div class="gallery-container">
+                <div class="gallery-track">
+                    <div class="gallery-item"><img src="rusdi.JPG" alt="Dokumentasi"></div>
+                    <div class="gallery-item"><img src="wardiman.jpeg" alt="Dokumentasi"></div>
+                    <div class="gallery-item"><img src="rika.jpeg" alt="Dokumentasi"></div>
+                    <div class="gallery-item"><img src="eka.jpeg" alt="Dokumentasi"></div>
+                    
+                    <div class="gallery-item"><img src="hajira.jpeg" alt="Dokumentasi"></div>
+                    <div class="gallery-item"><img src="abdullah.jpeg" alt="Dokumentasi"></div>
+
+                    <div class="gallery-item"><img src="rita.JPG" alt="Dokumentasi"></div>
+                    <div class="gallery-item"><img src="IMG_2395.JPG" alt="Dokumentasi"></div>
+                    <div class="gallery-item"><img src="andimesta.JPG" alt="Dokumentasi"></div>
+                    <div class="gallery-item"><img src="hartawati.JPG" alt="Dokumentasi"></div>
+                    <div class="gallery-item"><img src="ati.JPG" alt="Dokumentasi"></div>
+                    <div class="gallery-item"><img src="nurdiana.JPG" alt="Dokumentasi"></div>
+                    <div class="gallery-item"><img src="andre.JPG" alt="Dokumentasi"></div>
+                    <div class="gallery-item"><img src="santi.JPG" alt="Dokumentasi"></div>
+                    <div class="gallery-item"><img src="sri.JPG" alt="Dokumentasi"></div>
+                    <div class="gallery-item"><img src="puji.JPG" alt="Dokumentasi"></div>
                 </div>
             </div>
         </section>
