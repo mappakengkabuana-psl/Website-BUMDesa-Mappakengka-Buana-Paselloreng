@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simpan Pinjam - BUMDesa Mappakengka Buana Paselloreng</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        :root {
+            --primary-green: #0b2e26;
+            --eco-medium: #1e5128;
+            --eco-light: #4e944f;
+            --accent-lime: #b4ff9f;
+            --glass-bg: rgba(255, 255, 255, 0.8); 
+            --glass-border: rgba(255, 255, 255, 0.9);
+            --text-main: #0b2e26;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Sora', sans-serif; }
+
+        body {
+            background: linear-gradient(rgba(244, 252, 244, 0.85), rgba(244, 252, 244, 0.85)),
+                        url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            min-height: 100vh; color: var(--text-main); overflow-x: hidden;
+            display: flex; flex-direction: column; opacity: 0; transition: opacity 0.8s ease-in-out;
+        }
+
+        /* Reusing Navigation Styles from previous page */
+        .nav-wrapper { position: fixed; top: 0; left: 0; width: 100%; z-index: 9999; padding: 20px; display: flex; justify-content: center; transition: all 0.4s ease; pointer-events: none; }
+        nav { pointer-events: auto; max-width: 1100px; width: auto; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 15px; padding: 8px; box-shadow: 0 5px 20px rgba(11, 46, 38, 0.1); }
+        nav ul { display: flex; list-style: none; gap: 2px; }
+        nav ul li a { text-decoration: none; color: var(--primary-green); font-weight: 600; font-size: 0.75rem; padding: 12px 18px; border-radius: 10px; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
+        nav ul li a:hover { background: rgba(11, 46, 38, 0.1); }
+        nav ul li a.active { background: var(--primary-green); color: #fff; }
+
+        .content-area { flex: 1 0 auto; max-width: 1100px; margin: 140px auto 60px; padding: 0 20px; width: 100%; position: relative; z-index: 1; }
+        
+        .header-title { text-align: center; padding-bottom: 50px; }
+        .header-title h1 { font-size: 3rem; color: var(--primary-green); font-weight: 800; letter-spacing: -1.5px; }
+        .header-title h1 span { color: var(--eco-light); }
+
+        .section-card {
+            background: var(--glass-bg); backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border); border-radius: 24px;
+            padding: 40px; margin-bottom: 35px; box-shadow: 0 10px 40px rgba(11, 46, 38, 0.06);
+            position: relative; overflow: hidden;
+        }
+
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 30px; }
+        
+        .info-box {
+            background: white; padding: 25px; border-radius: 20px;
+            border-left: 5px solid var(--eco-light);
+        }
+        .info-box h4 { margin-bottom: 10px; color: var(--primary-green); display: flex; align-items: center; gap: 10px; }
+
+        /* Syarat Table/List */
+        .syarat-list { list-style: none; }
+        .syarat-list li { padding: 12px 0; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 12px; font-size: 0.95rem; }
+        .syarat-list li i { color: var(--eco-light); font-size: 1.1rem; }
+
+        /* Documentation Gallery */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
+        .gallery-item { height: 150px; border-radius: 15px; background: #ddd; overflow: hidden; position: relative; cursor: pointer; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .gallery-item:hover img { transform: scale(1.1); }
+
+        footer { text-align: center; padding: 40px; font-size: 0.8rem; color: var(--primary-green); font-weight: 600; background: rgba(255, 255, 255, 0.4); }
+
+        @media (max-width: 768px) {
+            .header-title h1 { font-size: 2.2rem; }
+            .section-card { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav-wrapper">
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
+                <li><a href="unit-usaha.html" class="active"><i class="fas fa-store"></i> UNIT USAHA</a></li>
+                <li><a href="hubungi.html"><i class="fas fa-envelope"></i> HUBUNGI</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="content-area">
+        <header class="header-title animate__animated animate__fadeIn">
+            <h1>Unit <span>Simpan Pinjam</span></h1>
+            <p style="color: var(--eco-medium); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; margin-top: 10px;">Pilar Permodalan Ekonomi Desa Paselloreng</p>
+        </header>
+
+        <section class="section-card animate__animated animate__fadeInUp">
+            <h2 style="margin-bottom: 20px;"><i class="fas fa-info-circle"></i> Tentang Layanan</h2>
+            <p style="line-height: 1.8;">Unit Simpan Pinjam (USP) BUMDesa Mappakengka Buana Paselloreng hadir sebagai solusi keuangan inklusif bagi masyarakat desa. Kami fokus pada pemberian modal usaha mikro dengan proses yang humanis, cepat, dan transparan guna memutus rantai ketergantungan masyarakat pada pinjaman tidak resmi (rentenir).</p>
+            
+            <div class="info-grid">
+                <div class="info-box">
+                    <h4><i class="fas fa-percent"></i> Bunga Rendah</h4>
+                    <p style="font-size: 0.9rem;">Suku bunga kompetitif yang disepakati melalui Musyawarah Desa (Musdes) untuk kesejahteraan anggota.</p>
+                </div>
+                <div class="info-box">
+                    <h4><i class="fas fa-user-shield"></i> Aman & Terpercaya</h4>
+                    <p style="font-size: 0.9rem;">Dikelola secara profesional di bawah pengawasan Pemerintah Desa dan Badan Pengawas BUMDesa.</p>
+                </div>
+                <div class="info-box">
+                    <h4><i class="fas fa-chart-pie"></i> Sisa Hasil Usaha</h4>
+                    <p style="font-size: 0.9rem;">Keuntungan unit usaha akan kembali ke desa dalam bentuk PADes untuk pembangunan fasilitas umum.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+            <h2 style="margin-bottom: 25px;"><i class="fas fa-clipboard-list"></i> Syarat & Prosedur Peminjaman</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+                <div>
+                    <h3 style="font-size: 1.1rem; margin-bottom: 15px; color: var(--eco-medium);">Kriteria Utama:</h3>
+                    <ul class="syarat-list">
+                        <li><i class="fas fa-check-circle"></i> Warga Negara Indonesia (Domisili Desa Paselloreng)</li>
+                        <li><i class="fas fa-check-circle"></i> Memiliki Kartu Tanda Penduduk (KTP) Elektronik</li>
+                        <li><i class="fas fa-check-circle"></i> Memiliki usaha produktif atau rencana usaha yang jelas</li>
+                        <li><i class="fas fa-check-circle"></i> Mengisi formulir permohonan pinjaman</li>
+                        <li><i class="fas fa-check-circle"></i> Melampirkan fotokopi Kartu Keluarga (KK)</li>
+                    </ul>
+                </div>
+                <div style="background: rgba(180, 255, 159, 0.2); padding: 25px; border-radius: 20px;">
+                    <h3 style="font-size: 1.1rem; margin-bottom: 15px; color: var(--eco-medium);">Alur Pengajuan:</h3>
+                    <p style="font-size: 0.9rem; line-height: 2;">
+                        1. Pengambilan & Pengisian Formulir di Kantor BUMDesa.<br>
+                        2. Verifikasi Berkas oleh Petugas Unit.<br>
+                        3. Persetujuan oleh Direktur BUMDesa.<br>
+                        4. Pencairan Dana Melalui Bendahara.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-card animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
+            <h2 style="margin-bottom: 20px;"><i class="fas fa-camera"></i> Dokumentasi Kegiatan</h2>
+            <p style="font-size: 0.9rem; margin-bottom: 20px;">Transparansi adalah prioritas kami. Berikut adalah kegiatan penyaluran dan monitoring usaha anggota.</p>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1554224155-169641357599?auto=format&fit=crop&q=80" alt="Dokumentasi Kegiatan">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1556742049-023b9fbf50ff?auto=format&fit=crop&q=80" alt="Dokumentasi Kegiatan">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e787?auto=format&fit=crop&q=80" alt="Dokumentasi Kegiatan">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e787?auto=format&fit=crop&q=80" alt="Dokumentasi Kegiatan">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e787?auto=format&fit=crop&q=80" alt="Dokumentasi Kegiatan">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e787?auto=format&fit=crop&q=80" alt="Dokumentasi Kegiatan">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e787?auto=format&fit=crop&q=80" alt="Dokumentasi Kegiatan">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e787?auto=format&fit=crop&q=80" alt="Dokumentasi Kegiatan">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 BUMDesa Mappakengka Buana Paselloreng. <br> Desa Paselloreng, Kec. Gilireng, Kab. Wajo.</p>
+    </footer>
+
+    <script>
+        window.addEventListener('load', () => { 
+            document.body.style.opacity = '1'; 
+        });
+    </script>
+</body>
+</html>
