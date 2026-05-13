@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simpan Pinjam - BUMDesa Mappakengka Buana Paselloreng</title>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -27,7 +31,8 @@
                         url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80');
             background-size: cover; background-position: center; background-attachment: fixed;
             min-height: 100vh; color: var(--text-main); overflow-x: hidden;
-            display: flex; flex-direction: column; opacity: 0; transition: opacity 0.8s ease-in-out;
+            display: flex; flex-direction: column; 
+            opacity: 0; transition: opacity 0.5s ease-in-out; /* Dipercepat dari 0.8s */
         }
 
         /* Navigation Styles */
@@ -63,7 +68,7 @@
         .syarat-list li { padding: 12px 0; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 12px; font-size: 0.95rem; }
         .syarat-list li i { color: var(--eco-light); font-size: 1.1rem; }
 
-        /* --- PERUBAHAN GALLERY: PORTRAIT & AUTO SLIDE --- */
+        /* GALLERY: PORTRAIT & AUTO SLIDE */
         .gallery-container {
             width: 100%;
             overflow: hidden;
@@ -79,15 +84,15 @@
         }
 
         .gallery-track:hover {
-            animation-play-state: paused; /* Berhenti saat di-hover mouse */
+            animation-play-state: paused;
         }
 
         .gallery-item {
-            width: calc((1100px - 125px) / 4); /* Menghitung agar 4 foto muat di layar desktop */
+            width: calc((1100px - 125px) / 4);
             min-width: 200px;
-            aspect-ratio: 3 / 4; /* Membuat format Portrait */
+            aspect-ratio: 3 / 4;
             border-radius: 15px;
-            background: #ddd;
+            background: #f0f0f0;
             overflow: hidden;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -106,7 +111,7 @@
 
         @keyframes scroll {
             0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } /* Geser setengah dari total track */
+            100% { transform: translateX(-50%); }
         }
 
         footer { text-align: center; padding: 40px; font-size: 0.8rem; color: var(--primary-green); font-weight: 600; background: rgba(255, 255, 255, 0.4); }
@@ -114,7 +119,7 @@
         @media (max-width: 768px) {
             .header-title h1 { font-size: 2.2rem; }
             .section-card { padding: 25px; }
-            .gallery-item { width: 160px; } /* Ukuran lebih kecil di HP */
+            .gallery-item { width: 160px; }
         }
     </style>
 </head>
@@ -187,24 +192,26 @@
             
             <div class="gallery-container">
                 <div class="gallery-track">
-                    <div class="gallery-item"><img src="rusdi.JPG" alt="Dokumentasi"></div>
-                    <div class="gallery-item"><img src="wardiman.jpeg" alt="Dokumentasi"></div>
-                    <div class="gallery-item"><img src="rika.jpeg" alt="Dokumentasi"></div>
-                    <div class="gallery-item"><img src="eka.jpeg" alt="Dokumentasi"></div>
-                    
-                    <div class="gallery-item"><img src="hajira.jpeg" alt="Dokumentasi"></div>
-                    <div class="gallery-item"><img src="abdullah.jpeg" alt="Dokumentasi"></div>
-
-                    <div class="gallery-item"><img src="rita.JPG" alt="Dokumentasi"></div>
-                    <div class="gallery-item"><img src="IMG_2395.JPG" alt="Dokumentasi"></div>
-                    <div class="gallery-item"><img src="andimesta.JPG" alt="Dokumentasi"></div>
-                    <div class="gallery-item"><img src="hartawati.JPG" alt="Dokumentasi"></div>
-                    <div class="gallery-item"><img src="ati.JPG" alt="Dokumentasi"></div>
-                    <div class="gallery-item"><img src="nurdiana.JPG" alt="Dokumentasi"></div>
-                    <div class="gallery-item"><img src="andre.JPG" alt="Dokumentasi"></div>
-                    <div class="gallery-item"><img src="santi.JPG" alt="Dokumentasi"></div>
-                    <div class="gallery-item"><img src="sri.JPG" alt="Dokumentasi"></div>
-                    <div class="gallery-item"><img src="puji.JPG" alt="Dokumentasi"></div>
+                    <div class="gallery-item"><img src="rusdi.JPG" alt="Dokumentasi" loading="lazy"></div>
+                    <div class="gallery-item"><img src="wardiman.jpeg" alt="Dokumentasi" loading="lazy"></div>
+                    <div class="gallery-item"><img src="rika.jpeg" alt="Dokumentasi" loading="lazy"></div>
+                    <div class="gallery-item"><img src="eka.jpeg" alt="Dokumentasi" loading="lazy"></div>
+                    <div class="gallery-item"><img src="hajira.jpeg" alt="Dokumentasi" loading="lazy"></div>
+                    <div class="gallery-item"><img src="abdullah.jpeg" alt="Dokumentasi" loading="lazy"></div>
+                    <div class="gallery-item"><img src="rita.JPG" alt="Dokumentasi" loading="lazy"></div>
+                    <div class="gallery-item"><img src="IMG_2395.JPG" alt="Dokumentasi" loading="lazy"></div>
+                    <div class="gallery-item"><img src="andimesta.JPG" alt="Dokumentasi" loading="lazy"></div>
+                    <div class="gallery-item"><img src="hartawati.JPG" alt="Dokumentasi" loading="lazy"></div>
+                    <div class="gallery-item"><img src="ati.JPG" alt="Dokumentasi" loading="lazy"></div>
+                    <div class="gallery-item"><img src="nurdiana.JPG" alt="Dokumentasi" loading="lazy"></div>
+                    <div class="gallery-item"><img src="andre.JPG" alt="Dokumentasi" loading="lazy"></div>
+                    <div class="gallery-item"><img src="santi.JPG" alt="Dokumentasi" loading="lazy"></div>
+                    <div class="gallery-item"><img src="sri.JPG" alt="Dokumentasi" loading="lazy"></div>
+                    <div class="gallery-item"><img src="puji.JPG" alt="Dokumentasi" loading="lazy"></div>
+                    <div class="gallery-item"><img src="rusdi.JPG" alt="Dokumentasi" loading="lazy"></div>
+                    <div class="gallery-item"><img src="wardiman.jpeg" alt="Dokumentasi" loading="lazy"></div>
+                    <div class="gallery-item"><img src="rika.jpeg" alt="Dokumentasi" loading="lazy"></div>
+                    <div class="gallery-item"><img src="eka.jpeg" alt="Dokumentasi" loading="lazy"></div>
                 </div>
             </div>
         </section>
@@ -215,7 +222,9 @@
     </footer>
 
     <script>
-        window.addEventListener('load', () => { 
+        // Menggunakan DOMContentLoaded agar konten muncul segera setelah HTML siap,
+        // tanpa harus menunggu seluruh gambar besar di galeri selesai didownload.
+        document.addEventListener('DOMContentLoaded', () => { 
             document.body.style.opacity = '1'; 
         });
     </script>
