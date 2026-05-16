@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pengurus - BUMDesa Mappakengka Buana Paselloreng</title>
     
+    <!-- Pemuatan Font Lebih Cepat dengan Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
     <style>
         :root {
@@ -37,6 +40,23 @@
             flex-direction: column;
             opacity: 0;
             transition: opacity 0.8s ease-in-out;
+        }
+
+        /* --- OPTIMASI ANIMASI (Menggantikan Animate.css Eksternal) --- */
+        .animate__animated {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+        }
+        .animate__fadeIn { animation-name: customFadeIn; }
+        .animate__fadeInUp { animation-name: customFadeInUp; }
+
+        @keyframes customFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes customFadeInUp {
+            from { opacity: 0; transform: translate3d(0, 40px, 0); }
+            to { opacity: 1; transform: translate3d(0, 0, 0); }
         }
 
         /* --- FIXED NAVIGATION --- */
@@ -190,7 +210,8 @@
                 <h2 class="section-title"><i class="fas fa-crown"></i> Otoritas Tertinggi</h2>
                 <div class="member-card" style="border: 2px solid var(--primary-green);">
                     <div class="status-pill status-aktif" style="background: var(--primary-green); color: #fff;">Forum</div>
-                    <div class="member-avatar"><img src="peserta2025.jpeg" alt="Musdes"></div>
+                    <!-- Ditambahkan atribut dimensi & optimalisasi pemuatan gambar -->
+                    <div class="member-avatar"><img src="peserta2025.jpeg" alt="Musdes" width="85" height="85" loading="lazy" decoding="async"></div>
                     <h4>Musyawarah Desa</h4>
                     <span class="jabatan">Kekuasaan Tertinggi</span>
                     <div class="member-info" style="text-align: center;">
@@ -206,7 +227,7 @@
                         <h2 class="section-title"><i class="fas fa-user-tie"></i> Penasehat</h2>
                         <div class="member-card">
                             <div class="status-pill status-aktif">Aktif</div>
-                            <div class="member-avatar"><img src="andifanzir.png" alt="Andi Fanzir"></div>
+                            <div class="member-avatar"><img src="andifanzir.png" alt="Andi Fanzir" width="85" height="85" loading="lazy" decoding="async"></div>
                             <h4>Andi Fanzir,S.Pd</h4>
                             <span class="jabatan">Pj. Kepala Desa</span>
                             <div class="member-info">
@@ -219,7 +240,7 @@
                         <h2 class="section-title"><i class="fas fa-user-check"></i> Pengawas</h2>
                         <div class="member-card">
                             <div class="status-pill status-aktif">Aktif</div>
-                            <div class="member-avatar"><img src="nurdin.png" alt="Nurdin"></div>
+                            <div class="member-avatar"><img src="nurdin.png" alt="Nurdin" width="85" height="85" loading="lazy" decoding="async"></div>
                             <h4>Nurdin</h4>
                             <span class="jabatan">Ketua Dewan Pengawas</span>
                             <div class="member-info">
@@ -232,13 +253,13 @@
 
                 <div class="connector-v" style="height: 60px;"></div>
 
-                <!-- Level 3: Pelaksana Operasional (Hierarkis) -->
+                <!-- Level 3: Pelaksana Operasional -->
                 <h2 class="section-title"><i class="fas fa-user-gear"></i> Pelaksana Operasional</h2>
                 
-                <!-- Direktur di Puncak Operasional -->
+                <!-- Direktur -->
                 <div class="member-card" style="border: 2px solid var(--eco-light);">
                     <div class="status-pill status-aktif">Aktif</div>
-                    <div class="member-avatar"><img src="satria.png" alt="Satria"></div>
+                    <div class="member-avatar"><img src="satria.png" alt="Satria" width="85" height="85" loading="lazy" decoding="async"></div>
                     <h4>Satria Nurhidayat</h4>
                     <span class="jabatan">Direktur</span>
                     <div class="member-info">
@@ -247,7 +268,6 @@
                     </div>
                 </div>
 
-                <!-- Garis Turun dari Direktur -->
                 <div class="connector-v" style="height: 40px;"></div>
                 
                 <div class="horizontal-connect" style="padding-top: 40px;">
@@ -255,7 +275,7 @@
                     <div>
                         <div class="member-card">
                             <div class="status-pill status-aktif">Aktif</div>
-                            <div class="member-avatar"><img src="astuti.png" alt="Astuti"></div>
+                            <div class="member-avatar"><img src="astuti.png" alt="Astuti" width="85" height="85" loading="lazy" decoding="async"></div>
                             <h4>Astuti Darapuspita</h4>
                             <span class="jabatan">Sekretaris</span>
                             <div class="member-info">
@@ -268,7 +288,7 @@
                     <div>
                         <div class="member-card">
                             <div class="status-pill status-aktif">Aktif</div>
-                            <div class="member-avatar"><img src="huri.png" alt="Huri"></div>
+                            <div class="member-avatar"><img src="huri.png" alt="Huri" width="85" height="85" loading="lazy" decoding="async"></div>
                             <h4>Huri Damayanti</h4>
                             <span class="jabatan">Bendahara</span>
                             <div class="member-info">
@@ -310,9 +330,10 @@
             } else {
                 navWrapper.classList.remove('nav-scrolled');
             }
-        });
+        }, { passive: true }); // Menggunakan passive listener untuk performa scroll yang lancar
 
-        window.addEventListener('load', () => { 
+        // Mengubah 'load' ke 'DOMContentLoaded' agar konten teks langsung muncul tanpa menunggu gambar selesai di-download semuanya
+        document.addEventListener('DOMContentLoaded', () => { 
             document.body.style.opacity = '1'; 
         });
     </script>
