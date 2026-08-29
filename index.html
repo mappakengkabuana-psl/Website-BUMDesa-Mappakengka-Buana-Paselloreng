@@ -256,22 +256,9 @@
 
     <script>
         function updateVisitorCount() {
-            let totalCount = localStorage.getItem('visit_count');
-            let hasVisitedThisSession = sessionStorage.getItem('visited_session');
-
-            if (totalCount === null) {
-                totalCount = 1;
-                localStorage.setItem('visit_count', totalCount);
-                sessionStorage.setItem('visited_session', 'true');
-            } 
-            else if (!hasVisitedThisSession) {
-                totalCount = parseInt(totalCount) + 1;
-                localStorage.setItem('visit_count', totalCount);
-                sessionStorage.setItem('visited_session', 'true');
-            }
-
-            document.getElementById('countDisplay').innerText = parseInt(totalCount).toLocaleString();
+            document.getElementById('countDisplay').innerText = '250+';
         }
+
 
         function toggleMenu(event) {
             event.stopPropagation();
